@@ -194,7 +194,7 @@ export function NewsHeroCarousel() {
               asChild
               className="-ml-3 mt-2 h-auto p-0 text-red-600 dark:text-red-400"
             >
-              <Link href="#politik">
+              <Link href="/kategori/politik">
                 Baca selengkapnya <ArrowRight className="ml-1 h-3 w-3" />
               </Link>
             </Button>

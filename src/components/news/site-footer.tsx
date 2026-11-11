@@ -8,12 +8,14 @@ const footerSections = [
   {
     title: 'Rubrik',
     links: [
-      { name: 'Politik', href: '#politik' },
-      { name: 'Ekonomi', href: '#ekonomi' },
-      { name: 'Teknologi', href: '#teknologi' },
-      { name: 'Internasional', href: '#internasional' },
-      { name: 'Olahraga', href: '#olahraga' },
-      { name: 'Hukum & Kriminal', href: '#hukum' },
+      { name: 'Viral', href: '/kategori/viral' },
+      { name: 'Politik', href: '/kategori/politik' },
+      { name: 'Ekonomi', href: '/kategori/ekonomi' },
+      { name: 'Teknologi', href: '/kategori/teknologi' },
+      { name: 'Internasional', href: '/kategori/internasional' },
+      { name: 'Olahraga', href: '/kategori/olahraga' },
+      { name: 'Hukum & Kriminal', href: '/kategori/hukum' },
+      { name: 'Lingkungan', href: '/kategori/lingkungan' },
     ],
   },
   {

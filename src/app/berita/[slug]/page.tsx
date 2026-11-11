@@ -23,6 +23,7 @@ import {
   getArticleBySlug,
   getArticleSlug,
   getFullContent,
+  getCategoryHref,
   type NewsItem,
 } from '@/lib/news-data'
 import { siteUrl } from '@/lib/site'
@@ -124,7 +125,7 @@ export default async function ArticlePage({ params }: PageProps) {
         '@type': 'ListItem',
         position: 2,
         name: article.category,
-        item: siteUrl(`/#${article.category.toLowerCase()}`),
+        item: siteUrl(getCategoryHref(article.category)),
       },
       {
         '@type': 'ListItem',
@@ -156,7 +157,7 @@ export default async function ArticlePage({ params }: PageProps) {
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Link href="/" className="hover:text-foreground">Beranda</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link href={`#${article.category.toLowerCase()}`} className="capitalize hover:text-foreground">
+              <Link href={getCategoryHref(article.category)} className="capitalize hover:text-foreground">
                 {article.category}
               </Link>
               <ChevronRight className="h-3 w-3" />

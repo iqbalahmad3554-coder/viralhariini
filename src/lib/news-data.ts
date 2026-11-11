@@ -708,14 +708,93 @@ export const viralSosial: NewsItem[] = [
 // ---- NAV KATEGORI ----
 export const categories: { name: NewsCategory; href: string; color: string }[] =
   [
-    { name: "Politik", href: "#politik", color: "bg-red-600" },
-    { name: "Ekonomi", href: "#ekonomi", color: "bg-emerald-600" },
-    { name: "Teknologi", href: "#teknologi", color: "bg-fuchsia-600" },
-    { name: "Internasional", href: "#internasional", color: "bg-sky-600" },
-    { name: "Olahraga", href: "#olahraga", color: "bg-orange-600" },
-    { name: "Hukum", href: "#hukum", color: "bg-violet-600" },
-    { name: "Viral", href: "#viral", color: "bg-pink-600" },
+    { name: "Politik", href: "/kategori/politik", color: "bg-red-600" },
+    { name: "Ekonomi", href: "/kategori/ekonomi", color: "bg-emerald-600" },
+    { name: "Teknologi", href: "/kategori/teknologi", color: "bg-fuchsia-600" },
+    { name: "Internasional", href: "/kategori/internasional", color: "bg-sky-600" },
+    { name: "Olahraga", href: "/kategori/olahraga", color: "bg-orange-600" },
+    { name: "Hukum", href: "/kategori/hukum", color: "bg-violet-600" },
+    { name: "Viral", href: "/kategori/viral", color: "bg-pink-600" },
+    { name: "Lingkungan", href: "/kategori/lingkungan", color: "bg-teal-600" },
   ];
+
+// ============================================================
+// HALAMAN KATEGORI — slug + meta SEO untuk landing page /kategori/[slug]
+// ============================================================
+export interface CategoryMeta {
+  name: NewsCategory;
+  slug: string;
+  tagline: string;
+  description: string;
+}
+
+export const categoryMeta: CategoryMeta[] = [
+  {
+    name: "Viral",
+    slug: "viral",
+    tagline: "Sedang ramai dibicarakan",
+    description:
+      "Kumpulan berita viral Indonesia terbaru hari ini: kisah unik, fenomena sosial media, kejadian lucu, dan trending topic yang sedang ramai dibahas warganet.",
+  },
+  {
+    name: "Politik",
+    slug: "politik",
+    tagline: "Kabar istana & parlemen",
+    description:
+      "Berita politik Indonesia terkini: kabar istana presiden, DPR, partai politik, kebijakan pemerintah, dan dinamika nasional yang memengaruhi kehidupan rakyat.",
+  },
+  {
+    name: "Ekonomi",
+    slug: "ekonomi",
+    tagline: "Dompet & pasar hari ini",
+    description:
+      "Berita ekonomi terbaru: harga kebutuhan pokok, rupiah, pasar saham, UMKM, investasi, dan analisis ekonomi Indonesia yang relevan dengan kantong Anda.",
+  },
+  {
+    name: "Teknologi",
+    slug: "teknologi",
+    tagline: "Gadget, AI & digital",
+    description:
+      "Berita teknologi terkini: gadget terbaru, kecerdasan buatan (AI), startup Indonesia, keamanan digital, dan tren teknologi yang mengubah cara kita hidup.",
+  },
+  {
+    name: "Internasional",
+    slug: "internasional",
+    tagline: "Dunia dalam genggaman",
+    description:
+      "Berita internasional terbaru hari ini: konflik global, diplomasi, ekonomi dunia, dan peristiwa luar negeri yang berdampak pada Indonesia.",
+  },
+  {
+    name: "Olahraga",
+    slug: "olahraga",
+    tagline: "Skor & sorak lapangan",
+    description:
+      "Berita olahraga terkini: Timnas Indonesia, Liga 1, bola dunia, MotoGP, bulu tangkis, dan hasil pertandingan lengkap dengan analisis pertarungan sengit.",
+  },
+  {
+    name: "Hukum",
+    slug: "hukum",
+    tagline: "Sidang, tersangka & keadilan",
+    description:
+      "Berita hukum & kriminal terbaru: perkara menarik, pengadilan, razia, kasus korupsi, dan penegakan hukum di Indonesia yang sedang menjadi sorotan publik.",
+  },
+  {
+    name: "Lingkungan",
+    slug: "lingkungan",
+    tagline: "Bumi & masa depan kita",
+    description:
+      "Berita lingkungan terbaru: perubahan iklim, bencana alam, konservasi alam, energi terbarukan, dan aksi penyelamatan lingkungan Indonesia.",
+  },
+];
+
+export function getCategoryBySlug(slug: string): CategoryMeta | undefined {
+  return categoryMeta.find((c) => c.slug === slug);
+}
+
+export function getCategoryHref(name: NewsCategory): string {
+  const meta = categoryMeta.find((c) => c.name === name);
+  return meta ? `/kategori/${meta.slug}` : "/";
+}
 
 // ============================================================
 // VIDEO BERITA (YouTube embed)
