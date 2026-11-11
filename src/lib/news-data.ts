@@ -876,6 +876,238 @@ export function getFullContent(item: NewsItem): string[] {
 }
 
 // ============================================================
+// BERITA TAMBAHAN (untuk memperkaya section)
+// ============================================================
+export const extraNews: NewsItem[] = [
+  {
+    id: "ext-01",
+    title:
+      "Kuliah Gratis di PTN 2026 Resmi Diumumkan, Ini Syarat dan Cara Daftarnya",
+    excerpt:
+      "Kementerian Pendidikan Tinggi umumkan program kuliah gratis di seluruh PTN mulai semester 2026/2027. Berikut syarat dan alur pendaftarannya.",
+    category: "Viral",
+    author: "Detik Edu",
+    publishedAt: "12 Nov 2026, 08:30 WIB",
+    readTime: 4,
+    views: "124 rb",
+    trending: true,
+    imageUrl: IMG("demo", 1),
+    imageHue: 280,
+    free: true,
+    tags: ["Kuliah Gratis", "PTN", "Pendidikan", "Kemendikti"],
+    fullContent: [
+      "Kementerian Pendidikan Tinggi, Sains, dan Teknologi (Kemendiktisaintek) resmi mengumumkan program kuliah gratis di seluruh Perguruan Tinggi Negeri (PTN) mulai semester genap 2026/2027. Program ini berlaku untuk mahasiswa baru dan mahasiswa aktif yang memenuhi syarat.",
+      "Syarat utama meliputi: terdaftar sebagai mahasiswa PTN jalur reguler, berdomisili dari keluarga dengan penghasilan di bawah batasan yang ditetapkan, dan memiliki IPK minimal 3,0 untuk mahasiswa aktif. Pendaftaran dilakukan secara online melalui portal resmi Kemendiktisaintek.",
+      "Program ini disambut antusias oleh publik. Diperkirakan lebih dari 1,2 juta mahasiswa akan mendapat manfaat langsung pada semester pertama implementasi. Detil skema pendanaan akan diumumkan minggu depan.",
+      "ViralHariIni.id menyajikan panduan lengkap pendaftaran dan FAQ di artikel ini. Bagi Anda yang berminat, simpan artikel ini untuk referensi pendaftaran. Gratis dibaca, tanpa paywall.",
+    ],
+  },
+  {
+    id: "ext-02",
+    title:
+      "Cuaca Ekstrem BMKG: Hujan Deras Disertai Angin Kencang 20 Kota Indonesia",
+    excerpt:
+      "BMKG mengeluarkan peringatan dini cuaca ekstrem untuk 20 kota di Indonesia. Warga diminta waspada potensi banjir dan tanah longsor.",
+    category: "Lingkungan",
+    author: "ANTARA News",
+    publishedAt: "12 Nov 2026, 05:45 WIB",
+    readTime: 3,
+    views: "67,3 rb",
+    imageUrl: IMG("banjir", 1),
+    imageHue: 200,
+    free: true,
+    tags: ["BMKG", "Cuaca Ekstrem", "Hujan", "Banjir"],
+    fullContent: [
+      "BMKG mengeluarkan peringatan dini cuaca ekstrem berupa hujan deras disertai angin kencang untuk 20 kota di Indonesia dalam 24 jam ke depan. Wilayah yang paling terdampak meliputi Jabodetabek, Bandung, Surabaya, Medan, dan Makassar.",
+      "Warga diminta mewaspadai potensi banjir lokal, genangan, dan tanah longsor terutama di daerah pegunungan. BMKG juga mengingatkan nelayan untuk tidak melaut bila gelombang tinggi terjadi.",
+      "Pemprov di sejumlah kota sudah menyiagakan posko siaga bencana. Warga dapat memantau info cuaca terkini melalui aplikasi Info BMKG atau kanal resmi BMKG di media sosial.",
+      "ViralHariIni.id menyajikan update cuaca real-time di section berita. Aktifkan notifikasi push kami untuk peringatan dini langsung ke perangkat Anda. Gratis, tanpa berlangganan.",
+    ],
+  },
+  {
+    id: "ext-03",
+    title:
+      "Harga BBM Naik Tahun 2026? Pertamina Bongkar Rencana Pemerintah",
+    excerpt:
+      "Pertamina merespons isu kenaikan harga BBM 2026. Simak penjelasan resmi soal skema subsidi dan harga premium, pertalite, dan solar.",
+    category: "Ekonomi",
+    author: "Kontan",
+    publishedAt: "11 Nov 2026, 21:10 WIB",
+    readTime: 3,
+    views: "89,2 rb",
+    trending: true,
+    imageUrl: IMG("ojk", 3),
+    imageHue: 35,
+    free: true,
+    tags: ["BBM", "Pertamina", "Subsidi", "Harga"],
+    fullContent: [
+      "Pertamina membongkar rencana pemerintah terkait isu kenaikan harga BBM pada 2026. Hingga saat ini, harga premium, pertalite, dan solar bersubsidi tetap dipertahankan sesuai keputusan pemerintah.",
+      "Namun, pemerintah terus mengkaji skema subsidi yang lebih tepat sasaran. Salah satu opsi yang dipelajari adalah konversi subsidi BBM menjadi subsidi langsung tunai melalui Bantuan Sosial (Bansos).",
+      "Pertamina mengimbau masyarakat tetap memantau pengumuman resmi melalui kanal resmi dan tidak mudah terprovokasi isu harga yang belum dikonfirmasi. Konsumen dapat cek harga BBM non-subsidi (Pertamax, Pertamax Turbo, Dex) di aplikasi MyPertamina.",
+      "ViralHariIni.id akan memberikan update resmi setiap kali ada pengumuman. Untuk saat ini, tidak ada kenaikan BBM bersubsidi. Simpan artikel ini untuk referensi.",
+    ],
+  },
+  {
+    id: "ext-04",
+    title:
+      "Black Friday 2026: Daftar Diskon Besar di Marketplace Indonesia Hari Ini",
+    excerpt:
+      "Black Friday 2026 tiba. Sejumlah marketplace besar di Indonesia memberikan diskon hingga 90% untuk produk elektronik, fashion, dan kebutuhan harian.",
+    category: "Viral",
+    author: "Liputan6 Tech",
+    publishedAt: "11 Nov 2026, 16:30 WIB",
+    readTime: 3,
+    views: "112 rb",
+    trending: true,
+    imageUrl: IMG("cyber", 2),
+    imageHue: 310,
+    free: true,
+    tags: ["Black Friday", "Diskon", "Marketplace", "Belanja"],
+    fullContent: [
+      "Black Friday 2026 tiba dan sejumlah marketplace besar di Indonesia memberikan diskon hingga 90% untuk berbagai kategori produk. Elektronik, fashion, dan kebutuhan harian menjadi kategori dengan diskon paling agresif.",
+      "Tokopedia, Shopee, Lazada, dan Bukalapak bersaing memberikan promo flash sale, gratis ongkir, dan cashback. Sejumlah brand ternama juga ikut memberikan diskon eksklusif untuk pengguna terdaftar.",
+      "Tips hemat: gunakan voucher dari akun bank/e-wallet, gabungkan dengan promo cashback, dan beli pada jam-jam tertentu (12 siang dan 12 malam) untuk flash sale. Pastikan juga produk yang dibeli memang dibutuhkan, bukan tergiur diskon.",
+      "ViralHariIni.id menyajikan daftar lengkap diskon per marketplace di artikel ini. Bagikan ke keluarga dan teman agar dapat manfaat serupa. Gratis dibaca, tanpa paywall.",
+    ],
+  },
+  {
+    id: "ext-05",
+    title:
+      "Konser Dewa 19 di GBK Tiket Sold Out dalam 30 Menit, Ekspektasi Fans Membludak",
+    excerpt:
+      "Konser reuni Dewa 19 di Stadion Utama GBK tiketnya sold out dalam 30 menit. Promotor berjanji menambah tanggal konser untuk antisipasi permintaan.",
+    category: "Olahraga",
+    author: "Kompas Entertainment",
+    publishedAt: "11 Nov 2026, 14:15 WIB",
+    readTime: 2,
+    views: "94,5 rb",
+    trending: true,
+    imageUrl: IMG("mu", 2),
+    imageHue: 25,
+    free: true,
+    tags: ["Konser", "Dewa 19", "GBK", "Musik"],
+    fullContent: [
+      "Tiket konser reuni Dewa 19 di Stadion Utama Gelora Bung Karno (GBK) sold out hanya dalam 30 menit setelah dijual. Permintaan fans yang membludak membuat sistem penjualan tiket sempat mengalami gangguan teknis.",
+      "Promotor, Rajawali Indonesia, berjanji menambah tanggal konser untuk mengakomodasi permintaan yang belum terpenuhi. Pengumuman tanggal tambahan akan dilakukan dalam beberapa hari ke depan.",
+      "Konser ini menjadi salah satu event musik paling dinantikan tahun 2026. Fans dari berbagai kota di Indonesia bahkan dari luar negeri telah membeli tiket jauh-jauh hari. Harga tiket berkisar dari Rp 500 ribu hingga Rp 5 juta untuk kategori VIP.",
+      "ViralHariIni.id akan memberikan info pengumuman tanggal tambahan secara real-time. Aktifkan notifikasi push untuk tidak ketinggalan. Gratis, tanpa berlangganan.",
+    ],
+  },
+  {
+    id: "ext-06",
+    title:
+      "Hasil Piala AFF 2026: Timnas Indonesia Menang Dramatis 3-2 atas Vietnam",
+    excerpt:
+      "Timnas Indonesia menang dramatis 3-2 atas Vietnam di matchday kedua Piala AFF 2026. Gol penentu lahir di menit akhir injury time.",
+    category: "Olahraga",
+    author: "Bola Sport",
+    publishedAt: "11 Nov 2026, 22:50 WIB",
+    readTime: 2,
+    views: "167 rb",
+    trending: true,
+    imageUrl: IMG("timnas", 1),
+    imageHue: 20,
+    free: true,
+    tags: ["Piala AFF", "Timnas Indonesia", "Vietnam", "Sepak Bola"],
+    fullContent: [
+      "Timnas Indonesia menang dramatis 3-2 atas Vietnam di matchday kedua Grup B Piala AFF 2026. Gol penentu kemenangan lahir di menit akhir injury time melalui sundulan pemain pengganti.",
+      "Skor sebelumnya dua kali imbang, dengan Indonesia unggul lebih dulu melalui gol cantik di babak pertama. Vietnam membalas dengan dua gol cepat di babak kedua, sebelum Indonesia menyamakan dan kemudian memastikan kemenangan di menit akhir.",
+      "Hasil ini membuat Timnas Indonesia memuncaki klasemen Grup B dengan 6 poin dari dua laga. Selanjutnya, skuat Garuda akan menghadapi Thailand di pertandingan ketiga.",
+      "ViralHariIni.id menyajikan highlight video gol dan reaksi pasca pertandingan di section Video Berita. Tonton gratis, tanpa berlangganan.",
+    ],
+  },
+  {
+    id: "ext-07",
+    title:
+      "Kemenkominfo Blokir 2.500 Akun Media Sosial Sebar Hoaks Pemakzulan",
+    excerpt:
+      "Kemenkominfo berhasil memblokir 2.500 akun media sosial yang diduga menyebar hoaks terkait isu pemakzulan Wapres Gibran.",
+    category: "Hukum",
+    author: "CNN Indonesia",
+    publishedAt: "11 Nov 2026, 11:25 WIB",
+    readTime: 3,
+    views: "76,4 rb",
+    imageUrl: IMG("cyber", 3),
+    imageHue: 245,
+    free: true,
+    tags: ["Kemenkominfo", "Hoaks", "Pemakzulan", "Media Sosial"],
+    fullContent: [
+      "Kementerian Komunikasi dan Informatika (Kemenkominfo) berhasil memblokir 2.500 akun media sosial yang diduga menyebar hoaks terkait isu pemakzulan Wapres Gibran Rakabuming Raka.",
+      "Direktur Jenderal Penyiaran Kemenkominfo menyampaikan bahwa pemblokiran dilakukan setelah koordinasi dengan aparat penegak hukum dan tim dari platform bersangkutan. Sebagian besar akun terindikasi merupakan akun bot yang sengaja disebarkan untuk memperkeruh situasi.",
+      "Kemenkominfo mengimbau masyarakat untuk lebih kritis terhadap informasi yang beredar, terutama yang berkaitan dengan isu politik dan kenegaraan. Verifikasi setiap kabar melalui sumber resmi sebelum mempercayai atau membagikan.",
+      "ViralHariIni.id berkomitmen menyajikan kabar berdasarkan kompilasi dari sumber terpercaya, anti-clickbait. Baca dan bagikan dengan bijak. Gratis dibaca, tanpa paywall.",
+    ],
+  },
+  {
+    id: "ext-08",
+    title:
+      "Bursa Karier: 5 Perusahaan Raksasa Buka Lowongan Ribuan Pekerjaan Akhir 2026",
+    excerpt:
+      "Sejumlah perusahaan raksasa seperti GoTo, Sea Group, BCA, Telkom, dan Unilever membuka ribuan lowongan kerja akhir 2026. Simak posisinya.",
+    category: "Ekonomi",
+    author: "Kompas Career",
+    publishedAt: "11 Nov 2026, 09:40 WIB",
+    readTime: 4,
+    views: "58,7 rb",
+    imageUrl: IMG("ojk", 2),
+    imageHue: 150,
+    free: true,
+    tags: ["Lowongan Kerja", "Karier", "Perusahaan", "Recruitment"],
+    fullContent: [
+      "Bursa karier akhir 2026 ramai dengan lowongan dari 5 perusahaan raksasa: GoTo, Sea Group, BCA, Telkom, dan Unilever. Total ribuan posisi dibuka untuk berbagai level, dari fresh graduate hingga senior.",
+      "Posisi yang paling banyak dibuka meliputi software engineer, data analyst, marketing specialist, customer success, dan supply chain. Sebagian besar posisi berlokasi di Jakarta, Surabaya, dan Bandung, dengan opsi hybrid atau work from office.",
+      "Bagi pencari kerja, siapkan CV menarik, portofolio jika relevan, dan latih wawancara. Banyak perusahaan kini juga melakukan assessment online dan coding test untuk posisi teknis.",
+      "ViralHariIni.id menyajikan daftar lengkap lowongan per perusahaan dengan link apply resmi di artikel ini. Bagi yang sedang mencari kerja, simpan dan bagikan ke teman. Gratis dibaca.",
+    ],
+  },
+  {
+    id: "ext-09",
+    title:
+      "Bunga Bank Naik Lagi: BI Rate 6,50%, Ini Dampaknya untuk Nasabah",
+    excerpt:
+      "Bank Indonesia menaikkan BI Rate ke level 6,50%. Bunga kredit dan tabungan diprediksi akan ikut naik. Simak dampaknya untuk nasabah.",
+    category: "Ekonomi",
+    author: "Kontan",
+    publishedAt: "10 Nov 2026, 18:20 WIB",
+    readTime: 3,
+    views: "63,1 rb",
+    imageUrl: IMG("ojk", 0),
+    imageHue: 160,
+    free: true,
+    tags: ["BI Rate", "Bank Indonesia", "Bunga", "Kredit"],
+    fullContent: [
+      "Bank Indonesia (BI) menaikkan BI Rate sebesar 25 bps ke level 6,50% dalam rapat Dewan Gubernur. Keputusan ini diambil untuk menjaga stabilitas nilai tukar Rupiah dan meredam tekanan inflasi pasca gejolak global.",
+      "Dampak untuk nasabah: bunga tabungan dan deposito diprediksi naik, menjadi berita baik untuk penabung. Sementara itu, bunga kredit (KPR, KTA, kredit usaha) juga akan ikut naik, yang berarti cicilan bulanan akan lebih berat.",
+      "Bagi yang berencana mengambil kredit dalam waktu dekat, sebaiknya pertimbangkan untuk lock bunga fixed rate sekarang. Bagi penabung, manfaatkan momentum untuk pindah ke deposito tenor 6-12 bulan.",
+      "ViralHariIni.id menyajikan analisis lengkap dampak kenaikan BI Rate untuk berbagai profil nasabah. Gratis dibaca, tanpa paywall. Bagikan ke keluarga yang sedang pertimbangkan kredit atau deposito.",
+    ],
+  },
+  {
+    id: "ext-10",
+    title:
+      "Viral: Siswa SMP Asal Bandung Ciptakan Robot Pembersih Sampah Sungai",
+    excerpt:
+      "Seorang siswa SMP asal Bandung viral setelah menciptakan robot pembersih sampah sungai. Inovasinya mendapat perhatian dari Kementerian Lingkungan Hidup.",
+    category: "Viral",
+    author: "Liputan6",
+    publishedAt: "10 Nov 2026, 20:30 WIB",
+    readTime: 2,
+    views: "203 rb",
+    trending: true,
+    imageUrl: IMG("demo", 3),
+    imageHue: 145,
+    free: true,
+    tags: ["Inovasi", "Robot", "Siswa SMP", "Bandung", "Lingkungan"],
+    fullContent: [
+      "Seorang siswa SMP asal Bandung, Jawa Barat, viral di media sosial setelah menciptakan robot pembersih sampah sungai. Robot kecil ini mampu mengangkat sampah plastik dari permukaan sungai secara otomatis.",
+      "Inovasi ini mendapat perhatian dari Kementerian Lingkungan Hidup dan Bakar Laut (KLHK). Menteri LH menyampaikan apresiasi langsung dan berjanji akan mendukung pengembangan inovasi ini ke skala yang lebih besar.",
+      "Siswa tersebut mengaku terinspirasi dari kondisi sungai di kotanya yang penuh sampah. Ia belajar membuat robot dari YouTube dan eksperimen di rumah selama 6 bulan.",
+      "ViralHariIni.id menyajikan video dokumentasi robot dan wawancara eksklusif dengan siswa di section Video Berita. Kisah inspiratif ini layak dibagikan ke anak-anak dan remaja untuk membangkitkan semangat berkarya. Gratis dibaca dan ditonton.",
+    ],
+  },
+];
+
+// ============================================================
 // SEMUA BERITA (flattened untuk grid "All News" section)
 // ============================================================
 export const allArticles: NewsItem[] = [
@@ -889,4 +1121,100 @@ export const allArticles: NewsItem[] = [
   ...olahragaNews,
   ...hukumNews,
   ...viralSosial,
+  ...extraNews,
 ].filter((a, i, arr) => arr.findIndex((b) => b.id === a.id) === i); // dedupe by id
+
+// ============================================================
+// EDITOR'S PICKS (berita pilihan redaksi)
+// ============================================================
+export const editorPicks: NewsItem[] = [
+  heroNews,
+  topStories[2],
+  trendingNews[0],
+  viralSosial[1],
+  extraNews[0],
+].filter((a, i, arr) => arr.findIndex((b) => b.id === a.id) === i);
+
+// ============================================================
+// POLLING INTERAKTIF (suara pembaca)
+// ============================================================
+export interface NewsPoll {
+  id: string;
+  question: string;
+  description?: string;
+  options: { id: string; label: string }[];
+  baseVotes: Record<string, number>;
+}
+
+export const newsPolls: NewsPoll[] = [
+  {
+    id: "poll-01",
+    question: "Apa pendapat Anda soal kabar pengunduran diri Gibran dari jabatan Wapres?",
+    description:
+      "Surat pengunduran diri Gibran dilaporkan diserahkan kepada Presiden Prabowo pada Rabu (11/11) malam. Bagaimana tanggapan Anda?",
+    options: [
+      { id: "a", label: "Setuju — langkah yang berani & bertanggung jawab" },
+      { id: "b", label: "Tidak setuju — sebaiknya tetap melanjutkan jabatan" },
+      { id: "c", label: "Netral — tunggu proses resmi di MPR" },
+      { id: "d", label: "Bingung — perlu info lebih lengkap" },
+    ],
+    baseVotes: { a: 8240, b: 6731, c: 9052, d: 3120 },
+  },
+  {
+    id: "poll-02",
+    question: "Seberapa sering Anda membaca berita online setiap hari?",
+    description:
+      "Bantu kami memahami kebiasaan baca berita pembaca ViralHariIni.id untuk menyajikan konten yang lebih baik.",
+    options: [
+      { id: "a", label: "Lebih dari 10 kali" },
+      { id: "b", label: "5-10 kali" },
+      { id: "c", label: "1-4 kali" },
+      { id: "d", label: "Jarang / hanya saat ada viral" },
+    ],
+    baseVotes: { a: 4218, b: 11420, c: 18930, d: 6543 },
+  },
+  {
+    id: "poll-03",
+    question: "Kategori berita apa yang paling Anda minati?",
+    description: "Pilih satu kategori favorit Anda — hasil digunakan untuk personalisasi rekomendasi kami.",
+    options: [
+      { id: "a", label: "Politik" },
+      { id: "b", label: "Ekonomi" },
+      { id: "c", label: "Teknologi" },
+      { id: "d", label: "Olahraga" },
+      { id: "e", label: "Viral / Sosial" },
+      { id: "f", label: "Internasional" },
+    ],
+    baseVotes: { a: 6712, b: 5304, c: 4891, d: 7203, e: 12043, f: 3120 },
+  },
+];
+
+// ============================================================
+// TAG CLOUD (visual hashtag discovery)
+// ============================================================
+export const trendingTags: { tag: string; weight: number; category: NewsCategory }[] = [
+  { tag: "Gibran Mundur", weight: 100, category: "Politik" },
+  { tag: "Prabowo", weight: 92, category: "Politik" },
+  { tag: "Penyadapan", weight: 88, category: "Hukum" },
+  { tag: "Women March", weight: 76, category: "Viral" },
+  { tag: "Pencopet Paris", weight: 71, category: "Viral" },
+  { tag: "UGM", weight: 65, category: "Viral" },
+  { tag: "Hari Pahlawan", weight: 58, category: "Viral" },
+  { tag: "Kuliah Gratis", weight: 54, category: "Viral" },
+  { tag: "Trump", weight: 50, category: "Internasional" },
+  { tag: "Oval Office", weight: 47, category: "Internasional" },
+  { tag: "Siber", weight: 44, category: "Teknologi" },
+  { tag: "Nvidia", weight: 41, category: "Teknologi" },
+  { tag: "Banjir Rob", weight: 39, category: "Lingkungan" },
+  { tag: "OJK", weight: 36, category: "Ekonomi" },
+  { tag: "BI Rate", weight: 33, category: "Ekonomi" },
+  { tag: "Pemakzulan", weight: 30, category: "Politik" },
+  { tag: "DPR", weight: 28, category: "Politik" },
+  { tag: "Israel", weight: 27, category: "Internasional" },
+  { tag: "MU", weight: 26, category: "Olahraga" },
+  { tag: "Pochettino", weight: 24, category: "Olahraga" },
+  { tag: "Piala AFF", weight: 22, category: "Olahraga" },
+  { tag: "Black Friday", weight: 20, category: "Viral" },
+  { tag: "TPPO", weight: 18, category: "Hukum" },
+  { tag: "LPSK", weight: 15, category: "Hukum" },
+];

@@ -7,6 +7,7 @@ import {
   Eye,
   Share2,
   Bookmark,
+  BookmarkCheck,
   Printer,
   ArrowLeft,
   Flame,
@@ -16,6 +17,13 @@ import {
   Facebook,
   Link as LinkIcon,
   MessageCircle,
+  Send,
+  Type,
+  Minimize2,
+  Maximize2,
+  Heart,
+  ThumbsUp,
+  ThumbsDown,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -27,21 +35,58 @@ import {
 } from '@/components/ui/dialog'
 import { NewsImage } from '@/components/news/news-image'
 import { useArticleStore } from '@/lib/article-store'
-import { getFullContent, allArticles, type NewsItem } from '@/lib/news-data'
+import {
+  getFullContent,
+  allArticles,
+  type NewsItem,
+} from '@/lib/news-data'
 import { toast } from 'sonner'
+import {
+  useBookmarkStore,
+  useReactionStore,
+  REACTIONS,
+  getReactionBaseCount,
+} from '@/lib/reader-store'
+import { cn } from '@/lib/utils'
+
+const FONT_SIZES = [
+  { id: 'sm', label: 'Kecil', className: 'text-sm sm:text-[15px]', leading: 'leading-relaxed' },
+  { id: 'md', label: 'Sedang', className: 'text-base sm:text-[17px]', leading: 'leading-relaxed' },
+  { id: 'lg', label: 'Besar', className: 'text-lg sm:text-xl', leading: 'leading-loose' },
+] as const
+
+const REACTION_EMOJI: Record<string, React.ElementType> = {
+  like: ThumbsUp,
+  love: Heart,
+  wow: Flame,
+  sad: ThumbsDown,
+  angry: ThumbsDown,
+}
 
 export function ArticleReader() {
   const { active, closeArticle } = useArticleStore()
-
-  // Untuk navigasi antar artikel di dalam reader
   const [history, setHistory] = React.useState<NewsItem[]>([])
-
+  const [progress, setProgress] = React.useState(0)
+  const [fontSize, setFontSize] = React.useState<'sm' | 'md' | 'lg'>('md')
+  const [showFontPicker, setShowFontPicker] = React.useState(false)
+  const scrollRef = React.useRef<HTMLDivElement>(null)
   const open = active !== null
   const item = active
 
-  // Reset history saat reader ditutup
+  const toggleBookmark = useBookmarkStore((s) => s.toggle)
+  const isBookmarked = useBookmarkStore((s) => s.bookmarks.includes(active?.id ?? ''))
+
+  const setReaction = useReactionStore((s) => s.setReaction)
+  const myReaction = useReactionStore((s) => s.reactions[active?.id ?? ''])
+
+  // Reset saat reader ditutup
   React.useEffect(() => {
-    if (!open) setHistory([])
+    if (!open) {
+      setHistory([])
+      setProgress(0)
+      setFontSize('md')
+      setShowFontPicker(false)
+    }
   }, [open])
 
   // Lock body scroll saat reader terbuka
@@ -54,17 +99,23 @@ export function ArticleReader() {
     }
   }, [open])
 
-  // Berita terkait (kategori sama, exclude current, ambil 3)
+  // Reset progress saat ganti artikel
+  React.useEffect(() => {
+    setProgress(0)
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ top: 0 })
+    }
+  }, [open, item?.id])
+
   const related = React.useMemo(() => {
     if (!item) return []
     return allArticles
       .filter((a) => a.id !== item.id && a.category === item.category)
-      .slice(0, 3)
+      .slice(0, 4)
   }, [item])
 
   const handleOpenRelated = (r: NewsItem) => {
     if (item) setHistory((h) => [...h, item])
-    // re-open reader dengan artikel baru
     useArticleStore.getState().openArticle(r)
   }
 
@@ -101,6 +152,23 @@ export function ArticleReader() {
     }
   }
 
+  const handleBookmark = () => {
+    if (!item) return
+    const nowBookmarked = toggleBookmark(item.id)
+    toast.success(
+      nowBookmarked
+        ? 'Artikel disimpan! Lihat di daftar bookmark Anda.'
+        : 'Bookmark dihapus.',
+    )
+  }
+
+  const handleReaction = (type: string) => {
+    if (!item) return
+    setReaction(item.id, type)
+  }
+
+  const fontClass = FONT_SIZES.find((f) => f.id === fontSize) ?? FONT_SIZES[1]
+
   return (
     <Dialog open={open} onOpenChange={(o) => !o && closeArticle()}>
       <DialogContent className="max-h-[100vh] max-w-3xl overflow-hidden border-border bg-background p-0 sm:rounded-2xl">
@@ -111,8 +179,27 @@ export function ArticleReader() {
           <X className="h-4 w-4" />
         </DialogClose>
 
+        {/* Reading progress bar (top fixed in modal) */}
+        {open && (
+          <div className="absolute inset-x-0 top-0 z-30 h-1 bg-muted">
+            <div
+              className="h-full bg-gradient-to-r from-red-600 via-red-500 to-orange-500 transition-[width] duration-150"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        )}
+
         {item && (
-          <div className="max-h-screen overflow-y-auto">
+          <div
+            ref={scrollRef}
+            onScroll={(e) => {
+              const el = e.currentTarget
+              const scrollHeight = el.scrollHeight - el.clientHeight
+              const pct = scrollHeight > 0 ? Math.min(100, (el.scrollTop / scrollHeight) * 100) : 0
+              setProgress(Math.max(0, Math.min(100, pct)))
+            }}
+            className="max-h-screen overflow-y-auto"
+          >
             {/* Hero image */}
             <div className="relative aspect-[16/9] w-full bg-muted">
               <NewsImage
@@ -141,10 +228,7 @@ export function ArticleReader() {
                   <Flame className="mr-1 h-3 w-3" /> {item.category}
                 </Badge>
                 {item.trending && (
-                  <Badge
-                    variant="secondary"
-                    className="bg-white/90 text-black hover:bg-white"
-                  >
+                  <Badge variant="secondary" className="bg-white/90 text-black hover:bg-white">
                     Trending
                   </Badge>
                 )}
@@ -190,23 +274,87 @@ export function ArticleReader() {
                 </div>
               )}
 
-              {/* Paragraf utuh */}
-              <div className="prose-custom space-y-4">
-                {getFullContent(item).map((para, i) => (
-                  <p
-                    key={i}
-                    className={
-                      i === 0
-                        ? 'text-base font-medium leading-relaxed text-foreground sm:text-lg'
-                        : 'text-sm leading-relaxed text-foreground/85 sm:text-base'
-                    }
+              {/* Toolbar (font size + bookmark + share) */}
+              <div className="sticky top-0 z-10 -mx-4 mb-5 flex flex-wrap items-center gap-2 bg-background/85 px-4 py-2 backdrop-blur sm:-mx-6 sm:px-6">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Ukuran teks:
+                </div>
+                <div className="flex gap-1">
+                  {FONT_SIZES.map((f) => (
+                    <button
+                      key={f.id}
+                      onClick={() => setFontSize(f.id)}
+                      aria-label={`Ukuran teks ${f.label}`}
+                      aria-pressed={fontSize === f.id}
+                      className={cn(
+                        'flex h-8 w-8 items-center justify-center rounded-md border text-xs font-medium transition-colors',
+                        fontSize === f.id
+                          ? 'border-red-600 bg-red-600 text-white'
+                          : 'border-border bg-background hover:border-red-500/40 hover:text-red-600',
+                      )}
+                    >
+                      <span className={cn('font-bold', f.id === 'sm' ? 'text-[10px]' : f.id === 'lg' ? 'text-sm' : 'text-xs')}>A</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="ml-auto flex items-center gap-1.5">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 gap-1.5 px-2.5"
+                    onClick={handleBookmark}
+                    aria-label="Simpan artikel ke bookmark"
                   >
+                    {isBookmarked ? (
+                      <>
+                        <BookmarkCheck className="h-3.5 w-3.5 text-emerald-600" />
+                        <span className="hidden sm:inline text-emerald-700 dark:text-emerald-500">Tersimpan</span>
+                      </>
+                    ) : (
+                      <>
+                        <Bookmark className="h-3.5 w-3.5" />
+                        <span className="hidden sm:inline">Simpan</span>
+                      </>
+                    )}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 gap-1.5 px-2.5"
+                    onClick={handleShare}
+                  >
+                    <Share2 className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Bagikan</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 w-8 px-0"
+                    onClick={() => window.print()}
+                    aria-label="Cetak artikel"
+                  >
+                    <Printer className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Paragraf utuh dengan ukuran teks terpilih */}
+              <div className={cn('space-y-4', fontClass.className, fontClass.leading)}>
+                {getFullContent(item).map((para, i) => (
+                  <p key={i} className="text-foreground/85">
                     {para}
                   </p>
                 ))}
               </div>
 
-              {/* Share + actions */}
+              {/* Reactions */}
+              <ReactionBar
+                articleId={item.id}
+                onReaction={handleReaction}
+                myReaction={myReaction}
+              />
+
+              {/* Share row */}
               <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-border pt-5">
                 <span className="mr-2 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
                   <Share2 className="h-3.5 w-3.5" /> Bagikan:
@@ -219,26 +367,8 @@ export function ArticleReader() {
                 >
                   <LinkIcon className="h-3.5 w-3.5" /> Salin Link
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-8 gap-1.5 px-2.5"
-                  onClick={() => toast.success('Berita disimpan!')}
-                >
-                  <Bookmark className="h-3.5 w-3.5" /> Simpan
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-8 gap-1.5 px-2.5"
-                  onClick={() => window.print()}
-                >
-                  <Printer className="h-3.5 w-3.5" /> Cetak
-                </Button>
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                    item.title,
-                  )}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(item.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Bagikan ke Twitter"
@@ -258,9 +388,7 @@ export function ArticleReader() {
                   <Facebook className="h-3.5 w-3.5" />
                 </a>
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(
-                    item.title,
-                  )}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(item.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Bagikan ke WhatsApp"
@@ -297,14 +425,14 @@ export function ArticleReader() {
                       {item.category}
                     </Badge>
                   </div>
-                  <ul className="space-y-2">
+                  <ul className="grid gap-2 sm:grid-cols-2">
                     {related.map((r) => (
                       <li key={r.id}>
                         <button
                           onClick={() => handleOpenRelated(r)}
                           className="group flex w-full items-start gap-3 rounded-xl border border-border bg-card p-3 text-left transition-all hover:border-red-500/40 hover:shadow-sm"
                         >
-                          <div className="relative aspect-square w-16 shrink-0 sm:w-20">
+                          <div className="relative aspect-square w-14 shrink-0 sm:w-16">
                             <NewsImage
                               hue={r.imageHue}
                               category={r.category}
@@ -314,15 +442,15 @@ export function ArticleReader() {
                               className="h-full w-full rounded-lg"
                             />
                           </div>
-                          <div className="flex min-w-0 flex-1 flex-col justify-center">
-                            <h4 className="line-clamp-2 text-sm font-semibold leading-snug transition-colors group-hover:text-red-600 dark:group-hover:text-red-400">
+                          <div className="flex min-w-0 flex-1 flex-col">
+                            <h4 className="line-clamp-2 text-xs font-semibold leading-snug transition-colors group-hover:text-red-600 dark:group-hover:text-red-400 sm:text-sm">
                               {r.title}
                             </h4>
-                            <p className="mt-1 text-[11px] text-muted-foreground">
-                              {r.author} · {r.publishedAt}
+                            <p className="mt-1 text-[10px] text-muted-foreground sm:text-[11px]">
+                              {r.author}
                             </p>
                           </div>
-                          <ChevronRight className="mt-1 h-4 w-4 shrink-0 self-center text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+                          <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-red-600" />
                         </button>
                       </li>
                     ))}
@@ -336,8 +464,8 @@ export function ArticleReader() {
                   Suka berita ini? Berlangganan newsletter harian gratis kami
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Setiap pagi pukul 06.00 WIB, langsung ke email Anda. Tanpa
-                  spam, berhenti kapan saja.
+                  Setiap pagi pukul 06.00 WIB, langsung ke email Anda. Tanpa spam,
+                  berhenti kapan saja.
                 </p>
                 <Button
                   asChild
@@ -358,5 +486,62 @@ export function ArticleReader() {
         )}
       </DialogContent>
     </Dialog>
+  )
+}
+
+// ============================================================
+// Reaction Bar (emoji reactions)
+// ============================================================
+function ReactionBar({
+  articleId,
+  onReaction,
+  myReaction,
+}: {
+  articleId: string
+  onReaction: (type: string) => void
+  myReaction?: string
+}) {
+  return (
+    <div className="mt-8 rounded-xl border border-border bg-muted/30 p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="flex items-center gap-2 text-sm font-bold">
+          <MessageCircle className="h-4 w-4 text-red-600" /> Reaksi pembaca
+        </h3>
+        <span className="text-[11px] text-muted-foreground">
+          Klik untuk memberi reaksi
+        </span>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {REACTIONS.map((r) => {
+          const count = getReactionBaseCount(articleId, r.id)
+          const isMine = myReaction === r.id
+          return (
+            <button
+              key={r.id}
+              onClick={() => onReaction(r.id)}
+              aria-label={`Reaksi ${r.label}`}
+              aria-pressed={isMine}
+              className={cn(
+                'flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition-all',
+                isMine
+                  ? 'border-red-600 bg-red-600 text-white shadow-sm scale-105'
+                  : 'border-border bg-background hover:border-red-500/40 hover:bg-muted',
+              )}
+            >
+              <span className="text-base">{r.emoji}</span>
+              <span>{r.label}</span>
+              <span
+                className={cn(
+                  'rounded-full px-1.5 py-0 text-[10px] font-bold tabular-nums',
+                  isMine ? 'bg-white/20' : 'bg-muted',
+                )}
+              >
+                {(count + (isMine ? 1 : 0)).toLocaleString('id-ID')}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
   )
 }

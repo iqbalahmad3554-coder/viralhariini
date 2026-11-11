@@ -1,6 +1,6 @@
 import { SiteHeader } from '@/components/news/site-header'
 import { BreakingTicker } from '@/components/news/breaking-ticker'
-import { NewsHero } from '@/components/news/news-hero'
+import { NewsHeroCarousel } from '@/components/news/news-hero-carousel'
 import { LiveStats } from '@/components/news/live-stats'
 import { TopStoriesSection } from '@/components/news/top-stories'
 import { ViralSpotlight } from '@/components/news/viral-spotlight'
@@ -12,6 +12,9 @@ import { VideoGallery } from '@/components/news/video-gallery'
 import { LiveChannels } from '@/components/news/live-channels'
 import { FreeAccessBanner } from '@/components/news/free-access-banner'
 import { AllNewsSection } from '@/components/news/all-news-section'
+import { EditorsPick } from '@/components/news/editors-pick'
+import { InteractivePoll } from '@/components/news/interactive-poll'
+import { TagCloud } from '@/components/news/tag-cloud'
 
 import {
   politikNews,
@@ -29,8 +32,8 @@ export default function Home() {
       <BreakingTicker />
 
       <main className="flex-1">
-        {/* Hero featured viral news */}
-        <NewsHero />
+        {/* Hero carousel — auto-rotate 4 featured articles */}
+        <NewsHeroCarousel />
 
         {/* Live stats bar */}
         <LiveStats />
@@ -38,13 +41,19 @@ export default function Home() {
         {/* Top stories + Trending sidebar */}
         <TopStoriesSection />
 
+        {/* Pilihan redaksi (editor's pick) */}
+        <EditorsPick />
+
         {/* Viral spotlight (highlight viral videos/stories) */}
         <ViralSpotlight />
 
         {/* Free access banner */}
         <FreeAccessBanner />
 
-        {/* Video berita */}
+        {/* Polling interaktif */}
+        <InteractivePoll />
+
+        {/* Video berita (with category filter) */}
         <VideoGallery />
 
         {/* Kategori: Politik */}
@@ -107,8 +116,11 @@ export default function Home() {
           accentClass="bg-violet-600"
         />
 
-        {/* Semua Berita — grid semua artikel dengan filter kategori */}
+        {/* Semua berita — grid semua artikel dengan filter kategori */}
         <AllNewsSection />
+
+        {/* Tag cloud — penemuan berita berbasis hashtag */}
+        <TagCloud />
 
         {/* Newsletter signup */}
         <Newsletter />
