@@ -8,6 +8,7 @@ import { ArticleReader } from "@/components/news/article-reader";
 import { SearchModal } from "@/components/news/search-modal";
 import { CookieConsent } from "@/components/news/cookie-consent";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
@@ -67,6 +68,22 @@ export const metadata: Metadata = {
       "application/rss+xml": "/feed.xml",
     },
   },
+  // Verifikasi Google Search Console & Bing Webmaster:
+  // set env NEXT_PUBLIC_GSC_VERIFICATION / NEXT_PUBLIC_BING_VERIFICATION
+  // di dashboard Vercel, lalu redeploy — meta tag muncul otomatis.
+  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION ||
+  process.env.NEXT_PUBLIC_BING_VERIFICATION
+    ? {
+        verification: {
+          ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
+            ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
+            : {}),
+          ...(process.env.NEXT_PUBLIC_BING_VERIFICATION
+            ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION } }
+            : {}),
+        },
+      }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -102,6 +119,7 @@ export default function RootLayout({
           <Toaster />
           <SonnerToaster position="bottom-right" richColors closeButton />
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
