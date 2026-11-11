@@ -80,6 +80,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
             hue={item.imageHue}
             category={item.category}
             title={item.title}
+            imageUrl={item.imageUrl}
             className="h-full w-full transition-transform duration-500 group-hover:scale-105"
           />
           {item.trending && (

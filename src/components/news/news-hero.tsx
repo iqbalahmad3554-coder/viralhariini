@@ -5,7 +5,7 @@ import { Clock, Eye, TrendingUp, ArrowRight, Flame } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { NewsImage } from '@/components/news/news-image'
-import { heroNews } from '@/lib/news-data'
+import { heroNews, trendingNews, topStories } from '@/lib/news-data'
 
 export function NewsHero() {
   return (
@@ -19,7 +19,9 @@ export function NewsHero() {
                 hue={heroNews.imageHue}
                 category={heroNews.category}
                 title={heroNews.title}
+                imageUrl={heroNews.imageUrl}
                 variant="large"
+                priority
                 className="h-full w-full transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
@@ -58,16 +60,12 @@ export function NewsHero() {
         {/* Samping - 2 mini cards */}
         <div className="flex flex-col gap-4">
           <MiniHeroCard
-            hue={210}
-            category="Internasional"
-            title="Trump Tetapkan Oval Office sebagai Monumen Nasional AS, Menuai Kontroversi"
+            item={trendingNews[3]}
             meta="BBC News · 09 Nov 2026"
           />
           <MiniHeroCard
-            hue={270}
-            category="Teknologi"
-            title="350.600 Aktivitas Ancaman Siber Terdeteksi di Indonesia dalam Sehari"
-            meta="Kontan · 08 Nov 2026"
+            item={topStories[2]}
+            meta="tvOne · 11 Nov 2026"
           />
           <div className="hidden rounded-xl border border-red-500/30 bg-red-500/5 p-4 sm:block">
             <p className="mb-2 text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400">
@@ -95,14 +93,10 @@ export function NewsHero() {
 }
 
 function MiniHeroCard({
-  hue,
-  category,
-  title,
+  item,
   meta,
 }: {
-  hue: number
-  category: string
-  title: string
+  item: { imageHue: number; category: string; title: string; imageUrl?: string }
   meta: string
 }) {
   return (
@@ -110,9 +104,10 @@ function MiniHeroCard({
       <Link href="#" className="flex h-full w-full gap-3 sm:gap-4">
         <div className="relative aspect-square w-24 shrink-0 sm:w-32">
           <NewsImage
-            hue={hue}
-            category={category}
-            title={title}
+            hue={item.imageHue}
+            category={item.category}
+            title={item.title}
+            imageUrl={item.imageUrl}
             variant="compact"
             className="h-full w-full"
           />
@@ -122,10 +117,10 @@ function MiniHeroCard({
             variant="secondary"
             className="mb-1.5 w-fit text-[10px] uppercase tracking-wider"
           >
-            {category}
+            {item.category}
           </Badge>
           <h3 className="line-clamp-3 text-sm font-bold leading-snug transition-colors group-hover:text-red-600 dark:group-hover:text-red-400 sm:text-base">
-            {title}
+            {item.title}
           </h3>
           <p className="mt-2 text-[11px] text-muted-foreground">{meta}</p>
         </div>

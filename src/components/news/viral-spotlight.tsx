@@ -39,6 +39,7 @@ export function ViralSpotlight() {
                     hue={item.imageHue}
                     category={item.category}
                     title={item.title}
+                    imageUrl={item.imageUrl}
                     variant="large"
                     className="h-full w-full transition-transform duration-700 group-hover:scale-105"
                   />

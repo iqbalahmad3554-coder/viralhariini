@@ -39,6 +39,7 @@ export function CategorySection({
                 hue={lead.imageHue}
                 category={lead.category}
                 title={lead.title}
+                imageUrl={lead.imageUrl}
                 variant="large"
                 className="h-full w-full transition-transform duration-500 group-hover:scale-105"
               />
@@ -75,6 +76,7 @@ export function CategorySection({
                       hue={item.imageHue}
                       category={item.category}
                       title={item.title}
+                      imageUrl={item.imageUrl}
                       variant="compact"
                       className="h-full w-full rounded-lg"
                     />

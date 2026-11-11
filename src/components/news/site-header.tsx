@@ -129,6 +129,31 @@ export function SiteHeader() {
                     </Link>
                   </SheetClose>
                 ))}
+                <SheetClose asChild>
+                  <Link
+                    href="#video"
+                    className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-muted"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Radio className="h-4 w-4 text-red-600" /> Video
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="#gratis"
+                    className="flex items-center justify-between rounded-md bg-emerald-500/10 px-3 py-2.5 text-sm font-bold text-emerald-700 transition-colors hover:bg-emerald-500/15 dark:text-emerald-500"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Badge className="bg-emerald-600 px-1.5 py-0 text-[10px] text-white">
+                        GRATIS
+                      </Badge>
+                      Akses Berita Gratis
+                    </span>
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </SheetClose>
               </nav>
               <div className="mt-auto border-t p-3">
                 <Button className="w-full" asChild>
@@ -234,6 +259,20 @@ export function SiteHeader() {
               {c.name}
             </Link>
           ))}
+          <Link
+            href="#video"
+            className="flex items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:border-red-500/40 hover:text-red-600 dark:hover:text-red-400"
+          >
+            <Radio className="h-4 w-4" /> Video
+          </Link>
+          <Link
+            href="#gratis"
+            className="flex items-center gap-1.5 border-b-2 border-emerald-500/60 bg-emerald-500/10 px-3 py-2.5 text-sm font-bold text-emerald-700 transition-colors hover:bg-emerald-500/15 dark:text-emerald-500"
+          >
+            <Badge className="bg-emerald-600 px-1.5 py-0 text-[10px] text-white hover:bg-emerald-700">
+              GRATIS
+            </Badge>
+          </Link>
           <Badge
             variant="secondary"
             className="ml-auto hidden gap-1 lg:flex"

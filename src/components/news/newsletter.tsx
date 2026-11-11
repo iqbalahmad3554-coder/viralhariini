@@ -39,7 +39,12 @@ export function Newsletter() {
             ramai dibicarakan — ringkas, akurat, anti-clickbait.
           </p>
           <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/90">
-            {['Tanpa spam', 'Berhenti kapan saja', 'Lebih dari 320 rb pelanggan'].map((f) => (
+            {[
+              '100% gratis — tanpa biaya',
+              'Tanpa spam',
+              'Berhenti kapan saja',
+              'Lebih dari 320 rb pelanggan',
+            ].map((f) => (
               <li key={f} className="flex items-center gap-1.5">
                 <Check className="h-4 w-4" /> {f}
               </li>

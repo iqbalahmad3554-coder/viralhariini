@@ -8,6 +8,9 @@ import { CategorySection } from '@/components/news/category-section'
 import { MostRead } from '@/components/news/most-read'
 import { Newsletter } from '@/components/news/newsletter'
 import { SiteFooter } from '@/components/news/site-footer'
+import { VideoGallery } from '@/components/news/video-gallery'
+import { LiveChannels } from '@/components/news/live-channels'
+import { FreeAccessBanner } from '@/components/news/free-access-banner'
 
 import {
   politikNews,
@@ -37,6 +40,12 @@ export default function Home() {
         {/* Viral spotlight (highlight viral videos/stories) */}
         <ViralSpotlight />
 
+        {/* Free access banner */}
+        <FreeAccessBanner />
+
+        {/* Video berita */}
+        <VideoGallery />
+
         {/* Kategori: Politik */}
         <CategorySection
           id="politik"
@@ -63,6 +72,9 @@ export default function Home() {
           items={internasionalNews}
           accentClass="bg-sky-600"
         />
+
+        {/* Live TV channels */}
+        <LiveChannels />
 
         {/* Kategori: Teknologi */}
         <CategorySection

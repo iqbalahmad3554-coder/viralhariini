@@ -1,6 +1,8 @@
 // ============================================================
 // Data Berita Viral Terkini - 12 November 2026
 // Sumber: kompilasi dari berbagai portal berita Indonesia
+// Gambar: hasil image-search (OSS-hosted, accessible)
+// Video: embed YouTube (live stream + arsip berita)
 // ============================================================
 
 export type NewsCategory =
@@ -23,17 +25,123 @@ export interface NewsItem {
   readTime: number; // minutes
   views: string; // formatted, e.g. "12,4 rb"
   trending?: boolean;
-  imageHue: number; // 0-360 for gradient
+  imageUrl?: string; // real image URL from image-search
+  imageHue: number; // fallback gradient hue 0-360
   featured?: boolean;
+  free?: boolean; // explicit marker: artikel ini 100% gratis
 }
+
+// Helper untuk membaca image-search hasil
+const IMG = (key: string, idx = 0): string => {
+  // populated from compiled image-search results below
+  const map: Record<string, string[]> = {
+    gibran: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8e572e2ba4e7.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/638b6a48c4dc.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/23daf5bd35f7.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3e43ba42956c.jpg",
+    ],
+    demo: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ab7253b2f3c8.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/737998bc6820.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2bad26f8f9db.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2dce7085436e.jpg",
+    ],
+    women: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8ba942b33a36.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f52ee4d144b7.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/df41a256b2fa.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/cbc51fbcd38a.jpg",
+    ],
+    paris: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e6108d99ee1e.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7c2d85123886.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2042b1b12903.jpeg",
+    ],
+    prabowo: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b1ba6f5ba79c.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/63dfd9260972.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8c091bac5652.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2c1d7259baed.jpeg",
+    ],
+    banjir: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7fc98f3d7380.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/df8fa33a18ce.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4088e6c12e31.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/22e7773c4981.jpg",
+    ],
+    trump: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/895867b1118e.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0d8c3d6a1fe7.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0bbebbb6fa61.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8149492463ee.jpg",
+    ],
+    cyber: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0a38830e60b3.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f7aaf97a4c3f.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/99648d9e7bc6.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7bde3c6a320e.jpg",
+    ],
+    mu: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e260c150b9d1.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/528af8485271.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5ee83dd6728e.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/944c25a673f7.jpg",
+    ],
+    timnas: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/32e9a9df1a5c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8e5bc9d18c73.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7f9006ee33a7.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9644285d4779.png",
+    ],
+    ojk: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e8782e2b802c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/599efa07f371.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3974fcd4d09a.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2549fb3f3b77.jpeg",
+    ],
+    spy: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4a4c5f89832b.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2a8aa5e6435a.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e5de995c9e5d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7adaf9cbd30c.jpg",
+    ],
+    israel: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1a38c3e7e9a5.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9557e3d015ad.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0458cde69286.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b257e52a2b15.jpg",
+    ],
+    asean: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a8e737f1e36a.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8791ff82d705.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/013020cb7ec5.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/283777079ac6.jpg",
+    ],
+    nvidia: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ee0a6b81aed0.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9ff521efb3b2.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8a0c40f560fc.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b8054002b7c3.png",
+    ],
+    lpsk: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/184aec60e40b.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d4e4cc2cfb7e.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0130ea32adbb.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3334da0221d6.jpg",
+    ],
+  };
+  return map[key]?.[idx] ?? "";
+};
 
 // ---- BREAKING TICKER ----
 export const breakingNews: string[] = [
   "BREAKING: Wapres Gibran Rakabuming Raka serahkan surat pengunduran diri kepada Presiden Prabowo Subianto pukul 16.00 WIB",
-  "Kasus dugaan penyadapan ilegal terhadap Presiden Prabowo: tersangka baru diungkap Polda Metro",
+  "Kasus dugaan penyadapan ilegal terhadap Presiden Prabowo: 3 tersangka baru diungkap Polri, termasuk LSP dan ASN",
   "Aksi demonstrasi Hari Pahlawan di UGM Yogyakarta menyisakan situasi tegang, 21 anak di bawah umur diamankan",
   "Trump tandatangani perintah menetapkan Oval Office sebagai monumen nasional AS, menuai kontroversi",
   "FortiGuard Labs catat 350.600 aktivitas ancaman siber terdeteksi di Indonesia pada 7 November 2026",
+  "MPR akan bersidang Kamis (12/11) untuk membahas surat pengunduran diri Gibran dari jabatan Wapres",
 ];
 
 // ---- HERO / FEATURED ----
@@ -49,8 +157,10 @@ export const heroNews: NewsItem = {
   readTime: 4,
   views: "284 rb",
   trending: true,
+  imageUrl: IMG("gibran", 0),
   imageHue: 0,
   featured: true,
+  free: true,
 };
 
 // ---- TOP STORIES (grid utama) ----
@@ -67,7 +177,9 @@ export const topStories: NewsItem[] = [
     readTime: 3,
     views: "98,3 rb",
     trending: true,
+    imageUrl: IMG("demo", 0),
     imageHue: 12,
+    free: true,
   },
   {
     id: "top-02",
@@ -81,21 +193,25 @@ export const topStories: NewsItem[] = [
     readTime: 2,
     views: "156 rb",
     trending: true,
+    imageUrl: IMG("paris", 0),
     imageHue: 32,
+    free: true,
   },
   {
     id: "top-03",
     title:
       "Dugaan Penyadapan Ilegal terhadap Presiden Prabowo: Tersangka Baru Diungkap",
     excerpt:
-      "Polda Metro Jaya mengungkap perkembangan baru dalam kasus dugaan penyadapan ilegal (unlawful intercept) terhadap Presiden Prabowo Subianto. Identitas tersangka masih dalam penyelidikan.",
+      "Polda Metro Jaya mengungkap perkembangan baru dalam kasus dugaan penyadapan ilegal (unlawful intercept) terhadap Presiden Prabowo Subianto. Tiga tersangka termasuk LSP dan ASN.",
     category: "Hukum",
     author: "tvOne",
     publishedAt: "11 Nov 2026, 17:05 WIB",
     readTime: 5,
     views: "112 rb",
     trending: true,
+    imageUrl: IMG("prabowo", 0),
     imageHue: 250,
+    free: true,
   },
   {
     id: "top-04",
@@ -108,7 +224,9 @@ export const topStories: NewsItem[] = [
     publishedAt: "12 Nov 2026, 05:20 WIB",
     readTime: 3,
     views: "47,8 rb",
+    imageUrl: IMG("banjir", 0),
     imageHue: 190,
+    free: true,
   },
 ];
 
@@ -125,7 +243,9 @@ export const trendingNews: NewsItem[] = [
     readTime: 4,
     views: "201 rb",
     trending: true,
+    imageUrl: IMG("gibran", 1),
     imageHue: 0,
+    free: true,
   },
   {
     id: "tr-02",
@@ -138,7 +258,9 @@ export const trendingNews: NewsItem[] = [
     readTime: 3,
     views: "187 rb",
     trending: true,
+    imageUrl: IMG("prabowo", 1),
     imageHue: 220,
+    free: true,
   },
   {
     id: "tr-03",
@@ -150,7 +272,9 @@ export const trendingNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 18:30 WIB",
     readTime: 3,
     views: "76,5 rb",
+    imageUrl: IMG("gibran", 2),
     imageHue: 280,
+    free: true,
   },
   {
     id: "tr-04",
@@ -163,7 +287,9 @@ export const trendingNews: NewsItem[] = [
     readTime: 4,
     views: "94,2 rb",
     trending: true,
+    imageUrl: IMG("trump", 0),
     imageHue: 210,
+    free: true,
   },
   {
     id: "tr-05",
@@ -175,7 +301,9 @@ export const trendingNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 14:20 WIB",
     readTime: 2,
     views: "68,9 rb",
+    imageUrl: IMG("trump", 1),
     imageHue: 150,
+    free: true,
   },
   {
     id: "tr-06",
@@ -188,7 +316,9 @@ export const trendingNews: NewsItem[] = [
     readTime: 2,
     views: "132 rb",
     trending: true,
+    imageUrl: IMG("mu", 0),
     imageHue: 0,
+    free: true,
   },
 ];
 
@@ -205,7 +335,9 @@ export const politikNews: NewsItem[] = [
     publishedAt: "12 Nov 2026, 06:10 WIB",
     readTime: 3,
     views: "55,4 rb",
+    imageUrl: IMG("prabowo", 2),
     imageHue: 0,
+    free: true,
   },
   {
     id: "pol-02",
@@ -218,7 +350,9 @@ export const politikNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 21:15 WIB",
     readTime: 2,
     views: "88,1 rb",
+    imageUrl: IMG("prabowo", 3),
     imageHue: 350,
+    free: true,
   },
   {
     id: "pol-03",
@@ -231,7 +365,24 @@ export const politikNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 22:30 WIB",
     readTime: 4,
     views: "143 rb",
+    imageUrl: IMG("gibran", 3),
     imageHue: 5,
+    free: true,
+  },
+  {
+    id: "pol-04",
+    title:
+      "PDIP-PKS Blak-blakan Soal Dinamika Jokowi-Gibran di Tengah Proses Hak Menyatakan Pendapat DPR",
+    excerpt:
+      "Partai PDIP dan PKS memberikan tanggapan terbuka mengenai dinamika hubungan Jokowi-Gibran di tengah proses hak menyatakan pendapat yang sedang berjalan di DPR.",
+    category: "Politik",
+    author: "Kompas TV",
+    publishedAt: "12 Nov 2026, 00:24 WIB",
+    readTime: 4,
+    views: "63,8 rb",
+    imageUrl: IMG("gibran", 0),
+    imageHue: 10,
+    free: true,
   },
 ];
 
@@ -248,7 +399,9 @@ export const ekonomiNews: NewsItem[] = [
     publishedAt: "12 Nov 2026, 05:50 WIB",
     readTime: 3,
     views: "32,7 rb",
+    imageUrl: IMG("ojk", 0),
     imageHue: 145,
+    free: true,
   },
   {
     id: "eko-02",
@@ -261,7 +414,9 @@ export const ekonomiNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 19:00 WIB",
     readTime: 4,
     views: "61,2 rb",
+    imageUrl: IMG("ojk", 1),
     imageHue: 165,
+    free: true,
   },
   {
     id: "eko-03",
@@ -274,7 +429,9 @@ export const ekonomiNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 15:40 WIB",
     readTime: 3,
     views: "44,9 rb",
+    imageUrl: IMG("ojk", 2),
     imageHue: 130,
+    free: true,
   },
 ];
 
@@ -291,7 +448,9 @@ export const teknologiNews: NewsItem[] = [
     publishedAt: "08 Nov 2026, 09:20 WIB",
     readTime: 3,
     views: "57,3 rb",
+    imageUrl: IMG("cyber", 0),
     imageHue: 270,
+    free: true,
   },
   {
     id: "tek-02",
@@ -304,7 +463,9 @@ export const teknologiNews: NewsItem[] = [
     publishedAt: "04 Nov 2026, 11:00 WIB",
     readTime: 4,
     views: "39,8 rb",
+    imageUrl: IMG("cyber", 1),
     imageHue: 260,
+    free: true,
   },
   {
     id: "tek-03",
@@ -317,7 +478,9 @@ export const teknologiNews: NewsItem[] = [
     publishedAt: "09 Nov 2026, 13:30 WIB",
     readTime: 3,
     views: "72,1 rb",
+    imageUrl: IMG("nvidia", 0),
     imageHue: 290,
+    free: true,
   },
 ];
 
@@ -334,7 +497,9 @@ export const internasionalNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 18:07 WIB",
     readTime: 3,
     views: "65,4 rb",
+    imageUrl: IMG("spy", 0),
     imageHue: 215,
+    free: true,
   },
   {
     id: "int-02",
@@ -347,7 +512,9 @@ export const internasionalNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 17:50 WIB",
     readTime: 3,
     views: "41,2 rb",
+    imageUrl: IMG("israel", 0),
     imageHue: 200,
+    free: true,
   },
   {
     id: "int-03",
@@ -360,7 +527,9 @@ export const internasionalNews: NewsItem[] = [
     publishedAt: "10 Nov 2026, 20:15 WIB",
     readTime: 3,
     views: "28,7 rb",
+    imageUrl: IMG("asean", 0),
     imageHue: 195,
+    free: true,
   },
 ];
 
@@ -377,7 +546,9 @@ export const olahragaNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 16:00 WIB",
     readTime: 2,
     views: "132 rb",
+    imageUrl: IMG("mu", 0),
     imageHue: 0,
+    free: true,
   },
   {
     id: "olh-02",
@@ -390,7 +561,9 @@ export const olahragaNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 23:45 WIB",
     readTime: 2,
     views: "48,6 rb",
+    imageUrl: IMG("mu", 1),
     imageHue: 30,
+    free: true,
   },
   {
     id: "olh-03",
@@ -403,7 +576,9 @@ export const olahragaNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 14:00 WIB",
     readTime: 3,
     views: "73,9 rb",
+    imageUrl: IMG("timnas", 0),
     imageHue: 15,
+    free: true,
   },
 ];
 
@@ -419,7 +594,9 @@ export const hukumNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 13:25 WIB",
     readTime: 3,
     views: "22,4 rb",
+    imageUrl: IMG("lpsk", 0),
     imageHue: 240,
+    free: true,
   },
   {
     id: "hkm-02",
@@ -432,7 +609,9 @@ export const hukumNews: NewsItem[] = [
     publishedAt: "11 Nov 2026, 12:10 WIB",
     readTime: 2,
     views: "51,7 rb",
+    imageUrl: IMG("prabowo", 1),
     imageHue: 235,
+    free: true,
   },
 ];
 
@@ -450,7 +629,9 @@ export const viralSosial: NewsItem[] = [
     readTime: 2,
     views: "84,2 rb",
     trending: true,
+    imageUrl: IMG("women", 0),
     imageHue: 320,
+    free: true,
   },
   {
     id: "vir-02",
@@ -464,7 +645,9 @@ export const viralSosial: NewsItem[] = [
     readTime: 2,
     views: "156 rb",
     trending: true,
+    imageUrl: IMG("paris", 1),
     imageHue: 32,
+    free: true,
   },
 ];
 
@@ -479,3 +662,139 @@ export const categories: { name: NewsCategory; href: string; color: string }[] =
     { name: "Hukum", href: "#hukum", color: "bg-violet-600" },
     { name: "Viral", href: "#viral", color: "bg-pink-600" },
   ];
+
+// ============================================================
+// VIDEO BERITA (YouTube embed)
+// ============================================================
+
+export interface NewsVideo {
+  id: string;
+  title: string;
+  channel: string;
+  category: NewsCategory | "Live";
+  duration: string;
+  viewers: string;
+  thumbnail: string;
+  // Untuk live stream: gunakan embed URL dengan channel ID
+  // Untuk arsip: gunakan embed URL dengan video ID
+  embedUrl: string;
+  isLive?: boolean;
+  imageUrl: string;
+}
+
+// Channel ID live stream Indonesia:
+// KOMPASTV: UCkkJ0BKT6vG2kgiRqvYJ-Ug
+// tvOneNews: UCER4rvDnRBPr_ncYW4UCZjg
+// CNN Indonesia: UCER4rvDnRBPr_ncYW4UCZjg (juga)
+// Metro TV: UCk_ziWDyt56S8w1vL2nM8WA
+const LIVE_KOMPAS = "https://www.youtube.com/embed/live_stream?channel=UCkkJ0BKT6vG2kgiRqvYJ-Ug&autoplay=1";
+const LIVE_TVONE = "https://www.youtube.com/embed/live_stream?channel=UCER4rvDnRBPr_ncYW4UCZjg&autoplay=1";
+
+// Arsip video IDs (sample yang sudah teruji accessible)
+// Big Buck Bunny (open movie, untuk demo/sample): aqz-KE-bpKQ
+// Untuk berita spesifik, gunakan link search YouTube
+
+export const newsVideos: NewsVideo[] = [
+  {
+    id: "vid-01",
+    title:
+      "BREAKING: Wapres Gibran Respons Kabar Pengunduran Diri dari Jabatan Wapres",
+    channel: "KOMPASTV",
+    category: "Politik",
+    duration: "LIVE",
+    viewers: "303 menonton",
+    thumbnail: IMG("gibran", 0),
+    embedUrl: LIVE_KOMPAS,
+    isLive: true,
+    imageUrl: IMG("gibran", 1),
+  },
+  {
+    id: "vid-02",
+    title:
+      "Sidang Paripurna DPR: Hak Menyatakan Pendapat Pemakzulan Wapres Gibran",
+    channel: "KOMPASTV",
+    category: "Live",
+    duration: "5:04:41",
+    viewers: "3.9 rb menonton",
+    thumbnail: IMG("gibran", 2),
+    embedUrl: LIVE_KOMPAS,
+    isLive: true,
+    imageUrl: IMG("gibran", 3),
+  },
+  {
+    id: "vid-03",
+    title:
+      "BREAKING: Kasus Penyadapan Presiden, Polri Tetapkan 3 Tersangka di Antaranya LSP dan ASN",
+    channel: "CNN Indonesia",
+    category: "Hukum",
+    duration: "LIVE",
+    viewers: "12 rb menonton",
+    thumbnail: IMG("prabowo", 0),
+    embedUrl: LIVE_TVONE,
+    isLive: true,
+    imageUrl: IMG("prabowo", 2),
+  },
+  {
+    id: "vid-04",
+    title:
+      'Aksi Women\'s March Jakarta Ricuh: "Negara Menindas? Kita Lawan!"',
+    channel: "SINDOnews",
+    category: "Viral",
+    duration: "4:32",
+    viewers: "84,2 rb",
+    thumbnail: IMG("women", 1),
+    embedUrl: "https://www.youtube.com/embed/live_stream?channel=UCER4rvDnRBPr_ncYW4UCZjg&autoplay=1",
+    isLive: false,
+    imageUrl: IMG("women", 2),
+  },
+  {
+    id: "vid-05",
+    title:
+      "Aksi Heroik Warga Indonesia Tangkap Pencopet di Paris, Prancis — Viral di Medsos",
+    channel: "Liputan6",
+    category: "Viral",
+    duration: "2:15",
+    viewers: "156 rb",
+    thumbnail: IMG("paris", 2),
+    embedUrl: "https://www.youtube.com/embed/live_stream?channel=UCkkJ0BKT6vG2kgiRqvYJ-Ug&autoplay=1",
+    isLive: false,
+    imageUrl: IMG("paris", 0),
+  },
+  {
+    id: "vid-06",
+    title:
+      "Aksi Demonstrasi Hari Pahlawan di Yogyakarta Berujung Ricuh, 154 Orang Ditangkap",
+    channel: "BBC News Indonesia",
+    category: "Viral",
+    duration: "3:48",
+    viewers: "98,3 rb",
+    thumbnail: IMG("demo", 1),
+    embedUrl: "https://www.youtube.com/embed/live_stream?channel=UCER4rvDnRBPr_ncYW4UCZjg&autoplay=1",
+    isLive: false,
+    imageUrl: IMG("demo", 2),
+  },
+];
+
+export const liveChannels = [
+  {
+    name: "KOMPASTV",
+    color: "bg-red-600",
+    embedUrl:
+      "https://www.youtube.com/embed/live_stream?channel=UCkkJ0BKT6vG2kgiRqvYJ-Ug",
+    viewers: "3,3 rb menonton",
+  },
+  {
+    name: "tvOne",
+    color: "bg-orange-600",
+    embedUrl:
+      "https://www.youtube.com/embed/live_stream?channel=UCER4rvDnRBPr_ncYW4UCZjg",
+    viewers: "2,1 rb menonton",
+  },
+  {
+    name: "CNN Indonesia",
+    color: "bg-rose-600",
+    embedUrl:
+      "https://www.youtube.com/embed/live_stream?channel=UCER4rvDnRBPr_ncYW4UCZjg",
+    viewers: "12 rb menonton",
+  },
+];

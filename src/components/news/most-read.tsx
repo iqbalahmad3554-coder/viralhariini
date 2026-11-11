@@ -45,6 +45,7 @@ export function MostRead() {
                   hue={item.imageHue}
                   category={item.category}
                   title={item.title}
+                  imageUrl={item.imageUrl}
                   className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                 />
                 <span className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-md bg-red-600 text-base font-extrabold text-white shadow-md">
