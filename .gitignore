@@ -1,7 +1,5 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-node_modules
+/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -16,13 +14,16 @@ node_modules
 # next.js
 /.next/
 /out/
+.next-standalone/
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
 *.pem
+Thumbs.db
 
 # debug
 npm-debug.log*
@@ -30,25 +31,34 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env
+.env*.local
+.env.production
 
 # vercel
 .vercel
 
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-local-*
-.claude
-.z-ai-config
-*.log
-dev.log
-dev.out.log
-test
-prompt
 
+# bun
+bun.lockb.bak
+
+# logs
+dev.log
 server.log
-# Skills directory
+*.log
+
+# z-ai internal (skill & sandbox files - bukan bagian dari website)
+/.zscripts/
+/agent-ctx/
 /skills/
+/tests/
+/db/custom.db
+dev.log
+server.log
+eslint.config.mjs.bak
+/.zscripts/
+/upload/
