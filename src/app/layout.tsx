@@ -21,6 +21,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Verifikasi Google Search Console & Bing Webmaster.
+// Token GSC terpasang default; bisa dioverride via env
+// NEXT_PUBLIC_GSC_VERIFICATION / NEXT_PUBLIC_BING_VERIFICATION di Vercel.
+const gscVerification =
+  process.env.NEXT_PUBLIC_GSC_VERIFICATION ??
+  "eFWZ3vMw_dXVsUsIRw89cCOv8vT3V0PMxP91AikHGgQ";
+const bingVerification = process.env.NEXT_PUBLIC_BING_VERIFICATION;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -68,18 +76,13 @@ export const metadata: Metadata = {
       "application/rss+xml": "/feed.xml",
     },
   },
-  // Verifikasi Google Search Console & Bing Webmaster:
-  // set env NEXT_PUBLIC_GSC_VERIFICATION / NEXT_PUBLIC_BING_VERIFICATION
-  // di dashboard Vercel, lalu redeploy — meta tag muncul otomatis.
-  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION ||
-  process.env.NEXT_PUBLIC_BING_VERIFICATION
+  // Verifikasi mesin pencari — meta tag muncul di semua halaman.
+  ...(bingVerification || gscVerification
     ? {
         verification: {
-          ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
-            ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
-            : {}),
-          ...(process.env.NEXT_PUBLIC_BING_VERIFICATION
-            ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION } }
+          ...(gscVerification ? { google: gscVerification } : {}),
+          ...(bingVerification
+            ? { other: { "msvalidate.01": bingVerification } }
             : {}),
         },
       }

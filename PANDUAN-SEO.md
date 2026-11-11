@@ -16,23 +16,15 @@ klik di dashboard.
 3. Pilih tipe **URL prefix** (bukan Domain), isi:
    `https://viralhariini.vercel.app`
 
-### 1b. Verifikasi kepemilikan (metode HTML tag)
+### 1b. Verifikasi kepemilikan (metode HTML tag) — SUDAH TERPASANG
 
-1. Pada layar "Verify ownership", pilih metode **HTML tag**.
-2. Google menampilkan tag seperti:
-   `<meta name="google-site-verification" content="ABCdef123..." />`
-3. Salin **hanya isi `content`-nya** (mis. `ABCdef123...`).
-4. Buka dashboard Vercel → project **viralhariini** → **Settings → Environment Variables**, lalu tambahkan:
-
-   | Key | Value | Environments |
-   | --- | --- | --- |
-   | `NEXT_PUBLIC_GSC_VERIFICATION` | (tempel isi `content` tadi) | Production, Preview |
-
-5. **Redeploy**: tab Deployments → deployment teratas → titik tiga → **Redeploy**.
-6. Setelah deploy selesai (± 1 menit), kembali ke Search Console dan klik **Verify**.
-
-> Sudah berjalan otomatis: kode situs membaca env tersebut dan memasang
-> `<meta name="google-site-verification" ...>` di semua halaman.
+> **Status: token verifikasi sudah tertanam di kode situs.** Meta tag
+> `<meta name="google-site-verification" content="eFWZ...">` sudah muncul
+> di semua halaman. Anda cukup membuka Search Console → pilih metode
+> **HTML tag** → langsung klik **Verify** tanpa mengubah apa pun.
+>
+> (Jika suatu hari token berubah: set env `NEXT_PUBLIC_GSC_VERIFICATION`
+> di Vercel → redeploy — env akan menimpa token default.)
 
 ### 1c. Kirim sitemap
 
