@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ArticleReader } from "@/components/news/article-reader";
 import { SearchModal } from "@/components/news/search-modal";
 import { CookieConsent } from "@/components/news/cookie-consent";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -94,6 +95,7 @@ export default function RootLayout({
           <CookieConsent />
           <Toaster />
           <SonnerToaster position="bottom-right" richColors closeButton />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
