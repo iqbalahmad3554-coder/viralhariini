@@ -16,6 +16,10 @@ export async function GET() {
   const urlList = [
     siteUrl("/"),
     siteUrl("/kontak"),
+    siteUrl("/tentang-kami"),
+    siteUrl("/kebijakan-privasi"),
+    siteUrl("/syarat-ketentuan"),
+    siteUrl("/disclaimer"),
     ...categoryMeta.map((c) => siteUrl(`/kategori/${c.slug}`)),
     ...allArticles.map((a) => siteUrl(`/berita/${getArticleSlug(a)}`)),
   ];
