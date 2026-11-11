@@ -875,6 +875,17 @@ export function getFullContent(item: NewsItem): string[] {
   ];
 }
 
+// Helper slug (string-only, no dep)
+export function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80);
+}
+
 // ============================================================
 // BERITA TAMBAHAN (untuk memperkaya section)
 // ============================================================
@@ -1123,6 +1134,24 @@ export const allArticles: NewsItem[] = [
   ...viralSosial,
   ...extraNews,
 ].filter((a, i, arr) => arr.findIndex((b) => b.id === a.id) === i); // dedupe by id
+
+// ============================================================
+// SLUG ↔ ARTICLE helpers (dideklarasikan setelah allArticles)
+// ============================================================
+export function getArticleSlug(item: NewsItem): string {
+  return `${item.id}-${slugify(item.title)}`;
+}
+
+export function getArticleBySlug(slug: string): NewsItem | undefined {
+  // Format slug: "<id>-<title-slug>", dimana id = "hero-01", "top-01", "ext-01", dll.
+  const idMatch = slug.match(/^([a-z]+-\d+)-/);
+  if (idMatch) {
+    const id = idMatch[1];
+    return allArticles.find((a) => a.id === id);
+  }
+  // Fallback: cari by id langsung
+  return allArticles.find((a) => a.id === slug);
+}
 
 // ============================================================
 // EDITOR'S PICKS (berita pilihan redaksi)

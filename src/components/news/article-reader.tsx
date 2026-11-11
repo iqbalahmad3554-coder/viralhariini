@@ -43,6 +43,7 @@ import { NewsImage } from '@/components/news/news-image'
 import { useArticleStore } from '@/lib/article-store'
 import {
   getFullContent,
+  getArticleSlug,
   allArticles,
   type NewsItem,
 } from '@/lib/news-data'
@@ -162,7 +163,10 @@ export function ArticleReader() {
 
   const handleShare = async () => {
     if (!item) return
-    const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
+    // Build URL shareable ke halaman artikel dedicated
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+    const slug = getArticleSlug(item)
+    const shareUrl = `${baseUrl}/berita/${slug}`
     if (navigator.share) {
       try {
         await navigator.share({
@@ -181,6 +185,13 @@ export function ArticleReader() {
         toast.error('Gagal menyalin link. Salin manual ya.')
       }
     }
+  }
+
+  const handleOpenArticlePage = () => {
+    if (!item) return
+    const slug = getArticleSlug(item)
+    closeArticle()
+    window.open(`/berita/${slug}`, '_blank')
   }
 
   const handleBookmark = () => {
@@ -583,6 +594,14 @@ export function ArticleReader() {
                   onClick={closeArticle}
                 >
                   <a href="#newsletter">Berlangganan Gratis</a>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-3 ml-2"
+                  onClick={handleOpenArticlePage}
+                >
+                  Buka halaman penuh
                 </Button>
               </div>
 

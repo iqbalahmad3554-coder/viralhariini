@@ -1,5 +1,6 @@
 import { SiteHeader } from '@/components/news/site-header'
 import { BreakingTicker } from '@/components/news/breaking-ticker'
+import { EconomicTicker } from '@/components/news/economic-ticker'
 import { NewsHeroCarousel } from '@/components/news/news-hero-carousel'
 import { LiveStats } from '@/components/news/live-stats'
 import { TopStoriesSection } from '@/components/news/top-stories'
@@ -17,6 +18,8 @@ import { AllNewsSection } from '@/components/news/all-news-section'
 import { EditorsPick } from '@/components/news/editors-pick'
 import { InteractivePoll } from '@/components/news/interactive-poll'
 import { TagCloud } from '@/components/news/tag-cloud'
+import { OnThisDay } from '@/components/news/on-this-day'
+import { ZodiacWidget } from '@/components/news/zodiac-widget'
 
 import {
   politikNews,
@@ -32,6 +35,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <BreakingTicker />
+      <EconomicTicker />
 
       <main className="flex-1">
         {/* Hero carousel — auto-rotate 4 featured articles */}
@@ -55,6 +59,9 @@ export default function Home() {
 
         {/* Free access banner */}
         <FreeAccessBanner />
+
+        {/* Pada hari ini di tahun... (sejarah harian) */}
+        <OnThisDay />
 
         {/* Polling interaktif */}
         <InteractivePoll />
@@ -121,6 +128,9 @@ export default function Home() {
           items={hukumNews}
           accentClass="bg-violet-600"
         />
+
+        {/* Zodiak harian (engagement ringan) */}
+        <ZodiacWidget />
 
         {/* Semua berita — grid semua artikel dengan filter kategori */}
         <AllNewsSection />

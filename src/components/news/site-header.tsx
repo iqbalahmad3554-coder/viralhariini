@@ -14,6 +14,7 @@ import {
   BookmarkCheck,
   History,
   ArrowRight,
+  Star,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -33,8 +34,13 @@ import { HistoryDropdown } from '@/components/news/history-dropdown'
 
 export function SiteHeader() {
   const [now, setNow] = React.useState<string>('')
+  const [mounted, setMounted] = React.useState(false)
   const toggleSearch = useSearchStore((s) => s.toggle)
   const bookmarkCount = useBookmarkStore((s) => s.bookmarks.length)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   React.useEffect(() => {
     const update = () => {
@@ -160,6 +166,28 @@ export function SiteHeader() {
                 </SheetClose>
                 <SheetClose asChild>
                   <Link
+                    href="#zodiak"
+                    className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-muted"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Star className="h-4 w-4 text-fuchsia-600" /> Zodiak
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="/bookmark"
+                    className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-muted"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Bookmark className="h-4 w-4 text-emerald-600" /> Bookmark Saya
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
                     href="#semua"
                     className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-bold transition-colors hover:bg-muted"
                   >
@@ -250,7 +278,7 @@ export function SiteHeader() {
               aria-label={`Bookmark (${bookmarkCount} tersimpan)`}
             >
               <Bookmark className="h-4 w-4" />
-              {bookmarkCount > 0 && (
+              {bookmarkCount > 0 && mounted && (
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-emerald-600 px-1 text-[10px] font-bold text-white">
                   {bookmarkCount}
                 </span>
@@ -317,6 +345,24 @@ export function SiteHeader() {
             className="flex items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:border-violet-500/40 hover:text-violet-600 dark:hover:text-violet-400"
           >
             <Bell className="h-4 w-4" /> Polling
+          </Link>
+          <Link
+            href="/#zodiak"
+            className="flex items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:border-fuchsia-500/40 hover:text-fuchsia-600 dark:hover:text-fuchsia-400"
+          >
+            <Star className="h-4 w-4" /> Zodiak
+          </Link>
+          <Link
+            href="/#on-this-day"
+            className="hidden items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:border-amber-500/40 hover:text-amber-600 dark:hover:text-amber-400 xl:flex"
+          >
+            Hari Ini
+          </Link>
+          <Link
+            href="/bookmark"
+            className="flex items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:border-emerald-500/40 hover:text-emerald-600 dark:hover:text-emerald-400"
+          >
+            <Bookmark className="h-4 w-4" /> Bookmark
           </Link>
           <Link
             href="#cuaca"

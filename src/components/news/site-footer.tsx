@@ -39,6 +39,17 @@ const footerSections = [
     ],
   },
   {
+    title: 'Fitur',
+    links: [
+      { name: 'Bookmark Saya', href: '/bookmark' },
+      { name: 'Zodiak Hari Ini', href: '/#zodiak' },
+      { name: 'Pada Hari Ini', href: '/#on-this-day' },
+      { name: 'Cuaca', href: '/#cuaca' },
+      { name: 'Jadwal Shalat', href: '/#shalat' },
+      { name: 'Pasar Ekonomi', href: '/' },
+    ],
+  },
+  {
     title: 'Legal',
     links: [
       { name: 'Kebijakan Privasi', href: '#' },
