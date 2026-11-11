@@ -88,3 +88,28 @@ dengan browser modern.
 - Verifikasi mesin pencari via env: `NEXT_PUBLIC_GSC_VERIFICATION`
   (Google) dan `NEXT_PUBLIC_BING_VERIFICATION` (Bing) di
   `src/app/layout.tsx` → muncul sebagai meta tag di semua halaman.
+
+---
+
+## Paket Trafik (12 Nov 2026): Discover + IndexNow + Kanal Sosial
+
+### 1. Google Discover — `max-image-preview:large`
+Meta `robots` dengan `max-image-preview:large` + `max-snippet:-1` kini terpasang di SEMUA halaman via `src/app/layout.tsx`. Ini syarat teknis agar artikel bisa tampil dengan thumbnail besar di Google Discover (sumber trafik terbesar untuk situs berita Indonesia). Lengkapi dengan: gambar artikel ≥1200px lebar dan judul informatif tanpa clickbait.
+
+### 2. IndexNow — ping instan ke Bing/Yandex/Seznam/Naver
+- Kunci publik: `public/e404a73f6a1d685f3951ce98c93a6746.txt` → cek `https://viralhariini.vercel.app/e404a73f6a1d685f3951ce98c93a6746.txt`
+- Endpoint: `GET /api/indexnow` — mengirim seluruh URL situs ke `api.indexnow.org`.
+- Otomatis: Vercel Cron di `vercel.json` memanggilnya setiap hari **00:30 WIB** (`30 17 * * *` UTC), tepat setelah cron berita 00:00 WIB menambah artikel baru.
+- Manual: `curl https://viralhariini.vercel.app/api/indexnow` (respon JSON berisi status IndexNow).
+- Hasil status `200/202` = URL diterima dan akan diindeks Bing jauh lebih cepat.
+
+### 3. Kanal sosial & halaman kontak
+- Halaman baru: **/kontak** (Kontak & Redaksi) — tip berita, koreksi, hak jawab (UU ITE Pasal 5), iklan, legal. JSON-LD ContactPage + Organization.
+- Tombol follow di footer & /kontak dikendalikan `src/lib/site.ts` → `SOCIAL_LINKS`.
+- Aktifkan kanal tanpa deploy ulang — set env di Vercel (Settings → Environment Variables):
+  - `NEXT_PUBLIC_WA_CHANNEL` — URL WhatsApp Channel, mis. `https://whatsapp.com/channel/0029Vax...`
+  - `NEXT_PUBLIC_TG_CHANNEL` — mis. `https://t.me/viralhariiniid`
+  - `NEXT_PUBLIC_FACEBOOK`, `NEXT_PUBLIC_TWITTER`, `NEXT_PUBLIC_INSTAGRAM`, `NEXT_PUBLIC_YOUTUBE`
+  - `NEXT_PUBLIC_REDAKSI_EMAIL` — ganti email redaksi (default `redaksi@viralhariini.id`)
+- Kosong = tombol otomatis disembunyikan (tidak ada link mati).
+- Setelah env disimpan di Vercel: Deployments → Redeploy agar env terbaca.

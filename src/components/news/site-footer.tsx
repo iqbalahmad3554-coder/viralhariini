@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { Flame, Facebook, Twitter, Instagram, Youtube, Linkedin, Rss } from 'lucide-react'
+import { Flame, Facebook, Twitter, Instagram, Youtube, Rss, MessageCircle, Send } from 'lucide-react'
 import { categories } from '@/lib/news-data'
+import { activeSocialLinks, type SocialKey } from '@/lib/site'
 
 const footerSections = [
   {
@@ -22,11 +23,11 @@ const footerSections = [
     title: 'Perusahaan',
     links: [
       { name: 'Tentang Kami', href: '#' },
-      { name: 'Redaksi', href: '#' },
+      { name: 'Redaksi', href: '/kontak' },
       { name: 'Kode Etik Jurnalistik', href: '#' },
       { name: 'Karier', href: '#' },
-      { name: 'Hubungi Kami', href: '#' },
-      { name: 'Pasang Iklan', href: '#' },
+      { name: 'Hubungi Kami', href: '/kontak' },
+      { name: 'Pasang Iklan', href: '/kontak' },
     ],
   },
   {
@@ -65,13 +66,25 @@ const footerSections = [
   },
 ]
 
+// Tombol follow sosial — otomatis dari SOCIAL_LINKS (src/lib/site.ts).
+// Set env NEXT_PUBLIC_WA_CHANNEL, NEXT_PUBLIC_TG_CHANNEL, dll. di Vercel
+// dan tombol langsung muncul tanpa deploy ulang.
+const socialConfig: Record<SocialKey, { label: string; icon: typeof Send }> = {
+  whatsapp: { label: 'WhatsApp Channel', icon: MessageCircle },
+  telegram: { label: 'Telegram', icon: Send },
+  facebook: { label: 'Facebook', icon: Facebook },
+  twitter: { label: 'Twitter / X', icon: Twitter },
+  instagram: { label: 'Instagram', icon: Instagram },
+  youtube: { label: 'YouTube', icon: Youtube },
+}
+
 const socials = [
-  { name: 'Facebook', icon: Facebook, href: '#' },
-  { name: 'Twitter / X', icon: Twitter, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
-  { name: 'YouTube', icon: Youtube, href: '#' },
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  { name: 'RSS', icon: Rss, href: '/feed.xml' },
+  ...activeSocialLinks().map(({ key, href }) => ({
+    ...socialConfig[key],
+    href,
+    external: true,
+  })),
+  { label: 'RSS', icon: Rss, href: '/feed.xml', external: false },
 ]
 
 export function SiteFooter() {
@@ -99,9 +112,13 @@ export function SiteFooter() {
             <div className="mt-5 flex flex-wrap gap-2">
               {socials.map((s) => (
                 <a
-                  key={s.name}
+                  key={s.label}
                   href={s.href}
-                  aria-label={s.name}
+                  aria-label={`Ikuti kami di ${s.label}`}
+                  title={s.label}
+                  {...(s.external
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-colors hover:border-red-500 hover:bg-red-600 hover:text-white"
                 >
                   <s.icon className="h-4 w-4" />

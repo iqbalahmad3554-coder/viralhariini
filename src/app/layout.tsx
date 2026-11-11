@@ -76,6 +76,22 @@ export const metadata: Metadata = {
       "application/rss+xml": "/feed.xml",
     },
   },
+  // Google Discover: izinkan thumbnail gambar besar di feed Discover & News.
+  // max-snippet -1 = tak batasi cuplikan; ini kunci trafik Discover untuk situs berita.
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   // Verifikasi mesin pencari — meta tag muncul di semua halaman.
   ...(bingVerification || gscVerification
     ? {
