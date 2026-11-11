@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { allArticles, getArticleSlug, categoryMeta } from "@/lib/news-data";
+import { getAllTags } from "@/lib/tags";
 import { SITE_URL, siteUrl, INDEXNOW_KEY } from "@/lib/site";
 
 // IndexNow — ping instan ke Bing, Yandex, Seznam, Naver (via api.indexnow.org).
@@ -15,11 +16,14 @@ export async function GET() {
   // Batas IndexNow 10.000 URL per request — selalu jauh di bawah batas.
   const urlList = [
     siteUrl("/"),
+    siteUrl("/zodiak"),
     siteUrl("/kontak"),
     siteUrl("/tentang-kami"),
     siteUrl("/kebijakan-privasi"),
     siteUrl("/syarat-ketentuan"),
     siteUrl("/disclaimer"),
+    // Halaman topik /tag/ — landing long-tail
+    ...getAllTags().map((t) => siteUrl(`/tag/${t.slug}`)),
     ...categoryMeta.map((c) => siteUrl(`/kategori/${c.slug}`)),
     ...allArticles.map((a) => siteUrl(`/berita/${getArticleSlug(a)}`)),
   ];

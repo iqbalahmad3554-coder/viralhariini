@@ -27,6 +27,7 @@ import {
   type NewsItem,
 } from '@/lib/news-data'
 import { siteUrl } from '@/lib/site'
+import { slugifyTag } from '@/lib/tags'
 import { ReadingProgress } from '@/components/news/reading-progress'
 
 interface PageProps {
@@ -205,16 +206,17 @@ export default async function ArticlePage({ params }: PageProps) {
                 </span>
               </div>
 
-              {/* Tags */}
+              {/* Tags — link ke halaman topik /tag/ (internal linking + long-tail SEO) */}
               {article.tags && article.tags.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {article.tags.map((t) => (
-                    <span
+                    <Link
                       key={t}
-                      className="rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground"
+                      href={`/tag/${slugifyTag(t)}`}
+                      className="rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground transition-colors hover:border-red-500/50 hover:text-red-600"
                     >
                       #{t}
-                    </span>
+                    </Link>
                   ))}
                 </div>
               )}

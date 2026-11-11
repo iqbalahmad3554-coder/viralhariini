@@ -40,6 +40,15 @@ const websiteJsonLd = {
   inLanguage: 'id-ID',
   description:
     'Portal berita viral terkini di Indonesia. Gratis tanpa paywall.',
+  // Sitelinks Search Box: kotak pencarian langsung di hasil pencarian Google
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${siteUrl('/cari')}?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
 }
 
 const organizationJsonLd = {
