@@ -9,20 +9,20 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// Potong teks di batas kata (bukan di tengah kata) agar kartu share rapi
+function truncate(s: string, max: number): string {
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max);
+  const clean = cut.slice(0, cut.lastIndexOf(" ")).trimEnd();
+  return `${clean}...`;
+}
+
 export default async function ArticleOgImage({ params }: Props) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
 
-  const title = article
-    ? article.title.length > 110
-      ? `${article.title.slice(0, 107).trimEnd()}...`
-      : article.title
-    : SITE_NAME;
-  const excerpt = article
-    ? article.excerpt.length > 150
-      ? `${article.excerpt.slice(0, 147).trimEnd()}...`
-      : article.excerpt
-    : "";
+  const title = article ? truncate(article.title, 110) : SITE_NAME;
+  const excerpt = article ? truncate(article.excerpt, 150) : "";
   const readTime = article?.readTime ?? 0;
 
   return new ImageResponse(
