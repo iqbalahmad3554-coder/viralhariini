@@ -22,10 +22,10 @@ const footerSections = [
   {
     title: 'Perusahaan',
     links: [
-      { name: 'Tentang Kami', href: '#' },
+      { name: 'Tentang Kami', href: '/tentang-kami' },
       { name: 'Redaksi', href: '/kontak' },
-      { name: 'Kode Etik Jurnalistik', href: '#' },
-      { name: 'Karier', href: '#' },
+      { name: 'Kode Etik Jurnalistik', href: '/tentang-kami#kode-etik' },
+      { name: 'Karier', href: '/tentang-kami#karier' },
       { name: 'Hubungi Kami', href: '/kontak' },
       { name: 'Pasang Iklan', href: '/kontak' },
     ],
@@ -33,13 +33,13 @@ const footerSections = [
   {
     title: 'Layanan',
     links: [
-      { name: 'Newsletter Harian', href: '#newsletter' },
-      { name: 'Notifikasi Push', href: '#' },
+      { name: 'Newsletter Harian', href: '/#newsletter' },
+      { name: 'Notifikasi Push', href: '/tentang-kami#aplikasi' },
       { name: 'RSS Feed', href: '/feed.xml' },
       { name: 'Peta Situs', href: '/sitemap.xml' },
       { name: 'Baca Artikel Acak', href: '/api/acak' },
-      { name: 'Aplikasi Mobile', href: '#' },
-      { name: 'Laporan Tip', href: '#' },
+      { name: 'Aplikasi Mobile', href: '/tentang-kami#aplikasi' },
+      { name: 'Laporan Tip', href: '/kontak' },
     ],
   },
   {
@@ -56,12 +56,12 @@ const footerSections = [
   {
     title: 'Legal',
     links: [
-      { name: 'Kebijakan Privasi', href: '#' },
-      { name: 'Syarat & Ketentuan', href: '#' },
-      { name: 'Disclaimer', href: '#' },
-      { name: 'Pedoman Media Siber', href: '#' },
-      { name: 'Hak Jawab', href: '#' },
-      { name: 'Cookie Policy', href: '#' },
+      { name: 'Kebijakan Privasi', href: '/kebijakan-privasi' },
+      { name: 'Syarat & Ketentuan', href: '/syarat-ketentuan' },
+      { name: 'Disclaimer', href: '/disclaimer' },
+      { name: 'Pedoman Media Siber', href: '/tentang-kami#pedoman-media-siber' },
+      { name: 'Hak Jawab', href: '/kontak' },
+      { name: 'Cookie Policy', href: '/kebijakan-privasi#cookie' },
     ],
   },
 ]

@@ -13,6 +13,8 @@ import {
   Megaphone,
   Scale,
 } from "lucide-react";
+import { SiteHeader } from "@/components/news/site-header";
+import { SiteFooter } from "@/components/news/site-footer";
 import {
   SITE_NAME,
   SITE_DESCRIPTION,
@@ -115,7 +117,9 @@ const channels = [
 
 export default function KontakPage() {
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12">
+    <div className="flex min-h-screen flex-col bg-background">
+      <SiteHeader />
+      <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -210,6 +214,8 @@ export default function KontakPage() {
           Jelajahi berita terbaru
         </Link>
       </p>
-    </main>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }

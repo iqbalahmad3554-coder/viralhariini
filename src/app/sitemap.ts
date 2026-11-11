@@ -8,6 +8,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: siteUrl("/"), changeFrequency: "hourly", priority: 1 },
     { url: siteUrl("/kontak"), changeFrequency: "monthly", priority: 0.4 },
+    { url: siteUrl("/tentang-kami"), changeFrequency: "monthly", priority: 0.4 },
+    { url: siteUrl("/kebijakan-privasi"), changeFrequency: "yearly", priority: 0.3 },
+    { url: siteUrl("/syarat-ketentuan"), changeFrequency: "yearly", priority: 0.3 },
+    { url: siteUrl("/disclaimer"), changeFrequency: "yearly", priority: 0.3 },
     { url: siteUrl("/bookmark"), changeFrequency: "weekly", priority: 0.3 },
   ];
 
