@@ -1,0 +1,24 @@
+{
+  "name": "ViralHariIni.id — Berita Viral Terkini",
+  "short_name": "ViralHariIni",
+  "description": "Portal berita viral terkini Indonesia. Gratis, tanpa paywall.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["news", "magazines"]
+}

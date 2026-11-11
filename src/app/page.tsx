@@ -3,6 +3,8 @@ import { BreakingTicker } from '@/components/news/breaking-ticker'
 import { NewsHeroCarousel } from '@/components/news/news-hero-carousel'
 import { LiveStats } from '@/components/news/live-stats'
 import { TopStoriesSection } from '@/components/news/top-stories'
+import { WeatherWidget } from '@/components/news/weather-widget'
+import { PrayerTimesWidget } from '@/components/news/prayer-times'
 import { ViralSpotlight } from '@/components/news/viral-spotlight'
 import { CategorySection } from '@/components/news/category-section'
 import { MostRead } from '@/components/news/most-read'
@@ -37,6 +39,10 @@ export default function Home() {
 
         {/* Live stats bar */}
         <LiveStats />
+
+        {/* Cuaca + Jadwal Shalat (premium widgets) */}
+        <WeatherWidget />
+        <PrayerTimesWidget />
 
         {/* Top stories + Trending sidebar */}
         <TopStoriesSection />

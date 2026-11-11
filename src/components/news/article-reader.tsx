@@ -24,9 +24,15 @@ import {
   Heart,
   ThumbsUp,
   ThumbsDown,
+  Volume2,
+  Square,
+  Pause,
+  Play,
+  ThumbsUp as ThumbsUpFilled,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Dialog,
   DialogContent,
@@ -47,6 +53,9 @@ import {
   REACTIONS,
   getReactionBaseCount,
 } from '@/lib/reader-store'
+import { useHistoryStore } from '@/lib/search-store'
+import { useTTS, useComments } from '@/hooks/use-reader-features'
+import { formatDistanceToNow } from '@/lib/time'
 import { cn } from '@/lib/utils'
 
 const FONT_SIZES = [
@@ -79,6 +88,23 @@ export function ArticleReader() {
   const setReaction = useReactionStore((s) => s.setReaction)
   const myReaction = useReactionStore((s) => s.reactions[active?.id ?? ''])
 
+  const addHistory = useHistoryStore((s) => s.add)
+  const tts = useTTS()
+  const [commentAuthor, setCommentAuthor] = React.useState('')
+  const [commentText, setCommentText] = React.useState('')
+  const commentsHook = useComments(active?.id ?? '')
+
+  // Track ke reading history saat artikel dibuka
+  React.useEffect(() => {
+    if (active) {
+      addHistory(active.id)
+    }
+    // Hentikan TTS saat ganti artikel
+    if (tts.speaking) {
+      tts.stop()
+    }
+  }, [active?.id])
+
   // Reset saat reader ditutup
   React.useEffect(() => {
     if (!open) {
@@ -86,6 +112,11 @@ export function ArticleReader() {
       setProgress(0)
       setFontSize('md')
       setShowFontPicker(false)
+      setCommentText('')
+      setCommentAuthor('')
+      if (tts.speaking) {
+        tts.stop()
+      }
     }
   }, [open])
 
@@ -274,7 +305,7 @@ export function ArticleReader() {
                 </div>
               )}
 
-              {/* Toolbar (font size + bookmark + share) */}
+              {/* Toolbar (font size + TTS + bookmark + share) */}
               <div className="sticky top-0 z-10 -mx-4 mb-5 flex flex-wrap items-center gap-2 bg-background/85 px-4 py-2 backdrop-blur sm:-mx-6 sm:px-6">
                 <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   Ukuran teks:
@@ -297,6 +328,64 @@ export function ArticleReader() {
                     </button>
                   ))}
                 </div>
+
+                {/* TTS control */}
+                {tts.supported && (
+                  <div className="flex items-center gap-1.5 border-l border-border pl-2">
+                    {!tts.speaking ? (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-8 gap-1.5 px-2.5"
+                        onClick={() => tts.speak(getFullContent(item))}
+                        aria-label="Dengarkan artikel (text-to-speech)"
+                      >
+                        <Volume2 className="h-3.5 w-3.5" />
+                        <span className="hidden sm:inline">Dengarkan</span>
+                      </Button>
+                    ) : (
+                      <>
+                        {tts.paused ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 w-8 px-0 border-red-500/40 bg-red-500/5"
+                            onClick={tts.resume}
+                            aria-label="Lanjutkan audio"
+                          >
+                            <Play className="h-3.5 w-3.5 text-red-600" />
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 w-8 px-0 border-red-500/40 bg-red-500/5"
+                            onClick={tts.pause}
+                            aria-label="Jeda audio"
+                          >
+                            <Pause className="h-3.5 w-3.5 text-red-600" />
+                          </Button>
+                        )}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-8 w-8 px-0 border-red-500/40 bg-red-500/5"
+                          onClick={tts.stop}
+                          aria-label="Hentikan audio"
+                        >
+                          <Square className="h-3 w-3 text-red-600" />
+                        </Button>
+                        <div className="hidden h-1 w-20 overflow-hidden rounded-full bg-muted sm:block">
+                          <div
+                            className="h-full bg-red-600 transition-[width] duration-300"
+                            style={{ width: `${tts.progress}%` }}
+                          />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+
                 <div className="ml-auto flex items-center gap-1.5">
                   <Button
                     variant="outline"
@@ -338,10 +427,18 @@ export function ArticleReader() {
                 </div>
               </div>
 
-              {/* Paragraf utuh dengan ukuran teks terpilih */}
+              {/* Paragraf utuh dengan ukuran teks terpilih + TTS highlight */}
               <div className={cn('space-y-4', fontClass.className, fontClass.leading)}>
                 {getFullContent(item).map((para, i) => (
-                  <p key={i} className="text-foreground/85">
+                  <p
+                    key={i}
+                    className={cn(
+                      'transition-all duration-300',
+                      tts.speaking && tts.currentPara === i
+                        ? 'rounded-md bg-red-500/10 px-3 py-2 ring-2 ring-red-500/40'
+                        : 'text-foreground/85',
+                    )}
+                  >
                     {para}
                   </p>
                 ))}
@@ -352,6 +449,18 @@ export function ArticleReader() {
                 articleId={item.id}
                 onReaction={handleReaction}
                 myReaction={myReaction}
+              />
+
+              {/* Komentar Pembaca */}
+              <CommentsSection
+                articleId={item.id}
+                comments={commentsHook.comments}
+                onAdd={commentsHook.addComment}
+                onLike={commentsHook.toggleLike}
+                commentAuthor={commentAuthor}
+                setCommentAuthor={setCommentAuthor}
+                commentText={commentText}
+                setCommentText={setCommentText}
               />
 
               {/* Share row */}
@@ -542,6 +651,130 @@ function ReactionBar({
           )
         })}
       </div>
+    </div>
+  )
+}
+
+// ============================================================
+// Comments Section
+// ============================================================
+interface CommentItem {
+  id: string
+  articleId: string
+  author: string
+  text: string
+  ts: number
+  likes: number
+  liked?: boolean
+}
+
+function CommentsSection({
+  articleId,
+  comments,
+  onAdd,
+  onLike,
+  commentAuthor,
+  setCommentAuthor,
+  commentText,
+  setCommentText,
+}: {
+  articleId: string
+  comments: CommentItem[]
+  onAdd: (author: string, text: string) => void
+  onLike: (commentId: string) => void
+  commentAuthor: string
+  setCommentAuthor: (v: string) => void
+  commentText: string
+  setCommentText: (v: string) => void
+}) {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!commentText.trim()) {
+      toast.error('Tulis komentar dulu ya.')
+      return
+    }
+    onAdd(commentAuthor.trim(), commentText.trim())
+    setCommentText('')
+    toast.success('Komentar Anda terkirim!')
+  }
+
+  return (
+    <div className="mt-6 rounded-xl border border-border bg-muted/30 p-4">
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="flex items-center gap-2 text-sm font-bold">
+          <MessageCircle className="h-4 w-4 text-red-600" /> Komentar Pembaca
+        </h3>
+        <span className="text-[11px] text-muted-foreground">
+          {comments.length} komentar · gratis, tanpa login
+        </span>
+      </div>
+
+      {/* Form komentar */}
+      <form onSubmit={handleSubmit} className="mb-5 space-y-2">
+        <Input
+          type="text"
+          placeholder="Nama (opsional)"
+          value={commentAuthor}
+          onChange={(e) => setCommentAuthor(e.target.value)}
+          className="h-9 text-sm"
+          aria-label="Nama Anda (opsional)"
+        />
+        <div className="flex gap-2">
+          <textarea
+            placeholder="Tulis komentar Anda..."
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+            className="min-h-[60px] flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
+            aria-label="Komentar Anda"
+          />
+          <Button
+            type="submit"
+            size="sm"
+            className="self-end bg-red-600 text-white hover:bg-red-700"
+            aria-label="Kirim komentar"
+          >
+            <Send className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+        <p className="text-[10px] text-muted-foreground">
+          Komentar disimpan di perangkat Anda. Hindari SARA, kata-kata kasar,
+          dan hoaks.
+        </p>
+      </form>
+
+      {/* List komentar */}
+      <ul className="space-y-3">
+        {comments.map((c) => (
+          <li key={c.id} className="rounded-lg border border-border bg-card p-3">
+            <div className="mb-1 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/15 text-xs font-bold text-red-600">
+                  {c.author.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <p className="text-xs font-semibold">{c.author}</p>
+                  <p className="text-[10px] text-muted-foreground">
+                    {formatDistanceToNow(c.ts)}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => onLike(c.id)}
+                aria-label="Suka komentar ini"
+                className={cn(
+                  'flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium transition-colors',
+                  c.liked
+                    ? 'border-red-600 bg-red-600 text-white'
+                    : 'border-border bg-background text-muted-foreground hover:border-red-500/40 hover:text-red-600',
+                )}
+              >
+                <ThumbsUp className="h-2.5 w-2.5" /> {c.likes}
+              </button>
+            </div>
+            <p className="text-sm text-foreground/85">{c.text}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
