@@ -25,6 +25,8 @@ import {
   getFullContent,
   type NewsItem,
 } from '@/lib/news-data'
+import { siteUrl } from '@/lib/site'
+import { ReadingProgress } from '@/components/news/reading-progress'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -43,18 +45,24 @@ export async function generateMetadata({ params }: PageProps) {
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: {
+      canonical: `/berita/${slug}`,
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
       type: 'article',
       locale: 'id_ID',
-      images: article.imageUrl ? [{ url: article.imageUrl }] : undefined,
+      url: siteUrl(`/berita/${slug}`),
+      publishedTime: article.publishedAt,
+      authors: [article.author],
+      section: article.category,
+      tags: article.tags,
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.excerpt,
-      images: article.imageUrl ? [article.imageUrl] : undefined,
     },
   }
 }
@@ -72,23 +80,59 @@ export default async function ArticlePage({ params }: PageProps) {
     .filter((a) => a.id !== article.id && a.category === article.category)
     .slice(0, 4)
 
+  // Navigasi artikel sebelumnya / berikutnya (mendorong baca berantai)
+  const idx = allArticles.findIndex((a) => a.id === article.id)
+  const prev = idx > 0 ? allArticles[idx - 1] : undefined
+  const next =
+    idx >= 0 && idx < allArticles.length - 1
+      ? allArticles[idx + 1]
+      : undefined
+  const canonicalUrl = siteUrl(`/berita/${getArticleSlug(article)}`)
+
   // JSON-LD structured data untuk SEO
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: article.title,
     description: article.excerpt,
-    image: article.imageUrl,
+    image: article.imageUrl ? [article.imageUrl] : undefined,
     author: { '@type': 'Organization', name: article.author },
     publisher: {
       '@type': 'Organization',
       name: 'ViralHariIni.id',
-      logo: { '@type': 'ImageObject', url: '/logo.svg' },
+      logo: { '@type': 'ImageObject', url: siteUrl('/logo.svg') },
     },
     datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
     articleSection: article.category,
+    inLanguage: 'id-ID',
     keywords: (article.tags ?? []).join(', '),
     isAccessibleForFree: true,
+  }
+
+  // JSON-LD Breadcrumb — memperkaya hasil pencarian Google
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Beranda', item: siteUrl('/') },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: article.category,
+        item: siteUrl(`/#${article.category.toLowerCase()}`),
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: canonicalUrl,
+      },
+    ],
   }
 
   return (
@@ -97,6 +141,11 @@ export default async function ArticlePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      <ReadingProgress />
       <div className="flex min-h-screen flex-col bg-background">
         <SiteHeader />
         <BreakingTicker />
@@ -269,6 +318,40 @@ export default async function ArticlePage({ params }: PageProps) {
                   ))}
                 </ul>
               </section>
+            )}
+
+            {/* Navigasi artikel sebelumnya / berikutnya */}
+            {(prev || next) && (
+              <nav aria-label="Navigasi artikel" className="mt-8 grid gap-3 sm:grid-cols-2">
+                {prev ? (
+                  <Link
+                    href={`/berita/${getArticleSlug(prev)}`}
+                    className="group rounded-xl border border-border bg-card p-4 transition-all hover:border-red-500/40 hover:shadow-sm"
+                  >
+                    <p className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      <ArrowLeft className="h-3 w-3" /> Sebelumnya
+                    </p>
+                    <p className="mt-1 line-clamp-2 text-sm font-semibold leading-snug group-hover:text-red-600 dark:group-hover:text-red-400">
+                      {prev.title}
+                    </p>
+                  </Link>
+                ) : (
+                  <span />
+                )}
+                {next && (
+                  <Link
+                    href={`/berita/${getArticleSlug(next)}`}
+                    className="group rounded-xl border border-border bg-card p-4 text-right transition-all hover:border-red-500/40 hover:shadow-sm"
+                  >
+                    <p className="flex items-center justify-end gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Berikutnya <ChevronRight className="h-3 w-3" />
+                    </p>
+                    <p className="mt-1 line-clamp-2 text-sm font-semibold leading-snug group-hover:text-red-600 dark:group-hover:text-red-400">
+                      {next.title}
+                    </p>
+                  </Link>
+                )}
+              </nav>
             )}
 
             {/* CTA langganan */}

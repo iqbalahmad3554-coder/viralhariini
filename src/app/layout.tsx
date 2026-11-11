@@ -7,6 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ArticleReader } from "@/components/news/article-reader";
 import { SearchModal } from "@/components/news/search-modal";
 import { CookieConsent } from "@/components/news/cookie-consent";
+import { Analytics } from "@vercel/analytics/next";
+import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,13 +21,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://viralhariini.id"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "ViralHariIni.id — Berita Viral & Terkini Hari Ini",
     template: "%s · ViralHariIni.id",
   },
-  description:
-    "Portal berita viral terkini di Indonesia. Kabar breaking, politik, ekonomi, teknologi, internasional, olahraga, dan hukum yang sedang ramai dibicarakan hari ini. Gratis tanpa paywall.",
+  description: SITE_DESCRIPTION,
   keywords: [
     "berita viral",
     "berita hari ini",
@@ -60,6 +61,12 @@ export const metadata: Metadata = {
     description: "Berita viral & terkini yang sedang ramai dibahas hari ini.",
   },
   manifest: "/manifest.json",
+  alternates: {
+    canonical: "/",
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -94,6 +101,7 @@ export default function RootLayout({
           <CookieConsent />
           <Toaster />
           <SonnerToaster position="bottom-right" richColors closeButton />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

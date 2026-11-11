@@ -29,10 +29,39 @@ import {
   olahragaNews,
   hukumNews,
 } from '@/lib/news-data'
+import { siteUrl } from '@/lib/site'
+
+// JSON-LD WebSite + Organization — identitas situs untuk Google
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'ViralHariIni.id',
+  url: siteUrl('/'),
+  inLanguage: 'id-ID',
+  description:
+    'Portal berita viral terkini di Indonesia. Gratis tanpa paywall.',
+}
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsMediaOrganization',
+  name: 'ViralHariIni.id',
+  url: siteUrl('/'),
+  logo: siteUrl('/logo.svg'),
+  sameAs: [],
+}
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       <SiteHeader />
       <BreakingTicker />
       <EconomicTicker />

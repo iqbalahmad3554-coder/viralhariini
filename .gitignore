@@ -62,3 +62,4 @@ server.log
 eslint.config.mjs.bak
 /.zscripts/
 /upload/
+.env*

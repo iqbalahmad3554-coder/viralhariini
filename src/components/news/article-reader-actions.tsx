@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Share2, Bookmark, BookmarkCheck, Printer, Twitter, Facebook, MessageCircle, Link as LinkIcon } from 'lucide-react'
+import { Share2, Bookmark, BookmarkCheck, Printer, Twitter, Facebook, MessageCircle, Send, Link as LinkIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useBookmarkStore } from '@/lib/reader-store'
 import { useHistoryStore } from '@/lib/search-store'
@@ -18,8 +18,11 @@ export function ArticleReaderActions({ article }: { article: NewsItem }) {
     addHistory(article.id)
   }, [article.id])
 
+  const currentUrl =
+    typeof window !== 'undefined' ? window.location.href : ''
+
   const handleShare = async () => {
-    const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
+    const shareUrl = currentUrl
     if (navigator.share) {
       try {
         await navigator.share({
@@ -88,9 +91,7 @@ export function ArticleReaderActions({ article }: { article: NewsItem }) {
         <Twitter className="h-3.5 w-3.5" />
       </a>
       <a
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          typeof window !== 'undefined' ? window.location.href : '',
-        )}`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Bagikan ke Facebook"
@@ -99,13 +100,24 @@ export function ArticleReaderActions({ article }: { article: NewsItem }) {
         <Facebook className="h-3.5 w-3.5" />
       </a>
       <a
-        href={`https://wa.me/?text=${encodeURIComponent(article.title)}`}
+        href={`https://wa.me/?text=${encodeURIComponent(
+          `${article.title}\n\n${currentUrl}`,
+        )}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Bagikan ke WhatsApp"
         className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-emerald-500 hover:text-emerald-600"
       >
         <MessageCircle className="h-3.5 w-3.5" />
+      </a>
+      <a
+        href={`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(article.title)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Bagikan ke Telegram"
+        className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-sky-400 hover:text-sky-500"
+      >
+        <Send className="h-3.5 w-3.5" />
       </a>
       <Button
         variant="ghost"

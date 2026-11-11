@@ -32,9 +32,10 @@ const footerSections = [
     links: [
       { name: 'Newsletter Harian', href: '#newsletter' },
       { name: 'Notifikasi Push', href: '#' },
-      { name: 'RSS Feed', href: '#' },
+      { name: 'RSS Feed', href: '/feed.xml' },
+      { name: 'Peta Situs', href: '/sitemap.xml' },
+      { name: 'Baca Artikel Acak', href: '/api/acak' },
       { name: 'Aplikasi Mobile', href: '#' },
-      { name: 'Arsip Berita', href: '#' },
       { name: 'Laporan Tip', href: '#' },
     ],
   },
@@ -68,7 +69,7 @@ const socials = [
   { name: 'Instagram', icon: Instagram, href: '#' },
   { name: 'YouTube', icon: Youtube, href: '#' },
   { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  { name: 'RSS', icon: Rss, href: '#' },
+  { name: 'RSS', icon: Rss, href: '/feed.xml' },
 ]
 
 export function SiteFooter() {
