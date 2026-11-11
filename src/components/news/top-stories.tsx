@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { NewsImage } from '@/components/news/news-image'
 import { topStories, trendingNews, type NewsItem } from '@/lib/news-data'
+import { MostPopular } from '@/components/news/most-popular'
 import { useOpenArticle } from '@/hooks/use-open-article'
 
 export function TopStoriesSection() {
@@ -68,6 +69,9 @@ export function TopStoriesSection() {
               </ol>
             </CardContent>
           </Card>
+
+          {/* Peringkat paling banyak dibaca (di luar daftar trending) */}
+          <MostPopular />
         </aside>
       </div>
     </section>

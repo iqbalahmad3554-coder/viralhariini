@@ -113,3 +113,23 @@ Meta `robots` dengan `max-image-preview:large` + `max-snippet:-1` kini terpasang
   - `NEXT_PUBLIC_REDAKSI_EMAIL` — ganti email redaksi (default `redaksi@viralhariini.id`)
 - Kosong = tombol otomatis disembunyikan (tidak ada link mati).
 - Setelah env disimpan di Vercel: Deployments → Redeploy agar env terbaca.
+
+## Tahap Lanjut (12 Nov 2026) — pintu masuk trafik tambahan
+
+### 1. Halaman topik /tag/[slug]
+Setiap tag artikel otomatis menjadi halaman topik yang bisa diindeks (SSG via `generateStaticParams`), menarget kata kunci long-tail yang dicari orang (mis. `/tag/prabowo-subianto`, `/tag/bi-rate`). Muncul di sitemap, urlList IndexNow, dan terhubung dari halaman artikel (chip tag) + topik terkait.
+
+### 2. Pencarian /cari
+Halaman hasil pencarian server-side (noindex sesuai pedoman Google) dengan tombol "Cari Berita" di header (desktop & mobile). Judul, ringkasan, kategori, dan tag dicocokkan. Bila query kosong, menampilkan 6 artikel trending.
+
+### 3. Widget "Terpopuler"
+Peringkat 5 artikel paling banyak dibaca (diambil dari angka `views` tiap artikel, di luar daftar Trending) di sidebar beranda — `src/components/news/most-popular.tsx`. Meningkatkan halaman per sesi dan memompa artikel lama yang masih populer.
+
+### 4. RSS /feed.xml
+Feed RSS 2.0 lengkap (judul, ringkasan, kategori, tag, gambar `enclosure`, tanggal RFC 822) + autodiscovery di `<head>` semua halaman (`alternates.types`). Siap disubmit ke Google Publisher Center, Feedly, Inoreader, dan layanan autopost RSS→sosial (mis. Buffer/Zapier) agar setiap artikel baru otomatis terbagikan.
+
+### 5. Google News sitemap /news-sitemap.xml
+Sitemap khusus Google News berisi artikel 48 jam terakhir (format `news:news`, tanggal WIB `+07:00`). Terdaftar di `robots.txt`. Saat mendaftar **Google Publisher Center**, tambahkan `https://viralhariini.vercel.app/news-sitemap.xml` sebagai news sitemap → artikel baru terindeks Google News dalam hitungan menit-jam, bukan hari.
+
+### 6. Tombol bagikan per artikel
+Setiap artikel punya tombol WhatsApp, Telegram, Facebook, X, bagikan native (mobile), dan salin tautan (`article-reader-actions.tsx`) — jalur viral utama trafik berita Indonesia.
