@@ -29,6 +29,8 @@ export interface NewsItem {
   imageHue: number; // fallback gradient hue 0-360
   featured?: boolean;
   free?: boolean; // explicit marker: artikel ini 100% gratis
+  fullContent?: string[]; // paragraf utuh artikel; jika kosong akan di-generate
+  tags?: string[];
 }
 
 // Helper untuk membaca image-search hasil
@@ -161,6 +163,15 @@ export const heroNews: NewsItem = {
   imageHue: 0,
   featured: true,
   free: true,
+  tags: ["Gibran Rakabuming", "Prabowo Subianto", "Wapres", "Pengunduran Diri", "Politik Indonesia"],
+  fullContent: [
+    "Wakil Presiden Gibran Rakabuming Raka dilaporkan telah menyerahkan surat pengunduran diri kepada Presiden Prabowo Subianto pada Rabu (11/11/2026) pukul 16.00 WIB. Informasi tersebut dibenarkan oleh Ketua Umum Pro Jokowi (Projo) Budi Arie Setiadi saat dikonfirmasi wartawan di Jakarta, Rabu malam.",
+    "“Pokoknya benar,” ujar Budi Arie menanggapi pertanyaan wartawan soal kabar surat pengunduran diri Gibran. Namun, ia belum bersedia merinci lebih lanjut isi surat maupun proses selanjutnya. Menurut sumber yang dihimpun Tribun, surat tersebut rencananya akan diteruskan kepada Majelis Permusyawaratan Rakyat (MPR) pada Kamis (12/11/2026).",
+    "Kabar pengunduran diri ini datang di tengah polemik ijazah yang sedang bergulir di pengadilan. Sebelumnya, Sekretaris Jenderal DPD Partai Demokrat Herman Khaeron menjawab pertanyaan wartawan soal kabar Wapres Gibran menghadap Presiden Prabowo untuk mengundurkan diri. Pertemuan tersebut disebut berlangsung pada 10 November 2026, di mana Gibran menyampaikan permohonan untuk mundur dari jabatannya.",
+    "Sementara itu, Kabinet Komunikasi (Kabakom) membantah kabar bahwa Presiden Prabowo memberi saran kepada Gibran untuk tetap melawan dalam perkara ijazah di pengadilan. Presiden Prabowo sendiri, saat dijumpai wartawan, memilih merespons kasus dugaan penyadapan dengan kelakar, mengaku “beberapa hari penuh dinamika”.",
+    "DPR juga sudah bergerak. Sedikitnya 18 anggota Fraksi Demokrat mengusulkan Hak Menyatakan Pendapat (HMP) terkait dinamika politik ini, dengan inisiator salah satunya Benny K Harman. Rencananya, ratusan anggota DPR menandatangani usulan HMP yang akan diserahkan ke pimpinan DPR siang ini.",
+    "ViralHariIni.id akan terus memantau perkembangan kabar ini. Bagi pembaca yang ingin mengikuti detik per detik, aktifkan notifikasi push atau berlangganan newsletter harian kami. Seluruh konten tentang perkembangan ini — termasuk video streaming dan arsip — disajikan gratis tanpa berlangganan berbayar.",
+  ],
 };
 
 // ---- TOP STORIES (grid utama) ----
@@ -180,6 +191,14 @@ export const topStories: NewsItem[] = [
     imageUrl: IMG("demo", 0),
     imageHue: 12,
     free: true,
+    tags: ["UGM", "Yogyakarta", "Demonstrasi", "Hari Pahlawan", "Polda DIY"],
+    fullContent: [
+      "Aksi unjuk rasa menyambut Hari Pahlawan 10 November 2026 di sekitar Universitas Gadjah Mada (UGM), Yogyakarta, berakhir ricuh dan menyisakan situasi tegang hingga dini hari. Berdasarkan laporan BBC News Indonesia, sedikitnya 154 orang ditangkap usai demonstrasi yang berujung kericuan pada Selasa (10/11) malam hingga Rabu (11/11) dini hari.",
+      "Polda DIY kemudian mengumumkan bahwa 21 anak di bawah umur yang turut diamankan dalam aksi tersebut telah dipulangkan ke orang tua masing-masing. Kapolda DIY menyampaikan bahwa pemulangan dilakukan setelah proses identifikasi dan koordinasi dengan pihak keluarga.",
+      "UGM, melalui pernyataan resminya, menolak keras segala bentuk kekerasan yang dilakukan oleh aparat saat penanganan aksi. Pihak kampus meminta pemerintah lebih peka terhadap aspirasi yang disampaikan mahasiswa, dan menegaskan bahwa kampus tetap menjadi ruang aman untuk berekspresi.",
+      "Sementara itu, aksi Women’s March yang digelar Sabtu (7/11/2026) juga diwarnai kericuhan saat massa diadang aparat kepolisian dan dipaksa berbelok arah menuju Gambir. Ratusan perempuan mengangkat tema “Negara Menindas? Kita Lawan!” dengan 9 tuntutan utama.",
+      "ViralHariIni.id terus memantau perkembangan situasi di Yogyakarta dan Jakarta. Tonton video arsip aksi ini di section Video Berita kami, atau berlangganan newsletter untuk rangkuman harian gratis.",
+    ],
   },
   {
     id: "top-02",
@@ -196,6 +215,13 @@ export const topStories: NewsItem[] = [
     imageUrl: IMG("paris", 0),
     imageHue: 32,
     free: true,
+    tags: ["Paris", "Pencopet", "Turis Indonesia", "Viral", "Liputan6"],
+    fullContent: [
+      "Sebuah video yang viral di media sosial memperlihatkan aksi heroik sekelompok “emak-emak” asal Indonesia yang berhasil menangkap komplotan pencopet di Paris, Prancis. Dalam video tersebut, terlihat warga Indonesia dengan sigap mengejar dan menangkap pelaku yang diduga kerap beraksi di area wisata.",
+      "Sosok emak-emak tersebut mendapat pujian dari netizen karena keberaniannya melindungi sesama turis. Banyak komentar menyebutkan bahwa aksi tersebut membanggakan citra Indonesia di mata dunia internasional.",
+      "Kasus pencopetan di destinasi wisata populer seperti Paris memang bukan hal baru. Sejumlah kedutaan besar dan kementerian luar negeri kerap mengeluarkan imbauan waspada bagi turis Indonesia yang bepergian ke Eropa.",
+      "ViralHariIni.id menyajikan video lengkap aksi ini di section Video Berita. Nonton gratis, tanpa berlangganan. Jika Anda punya pengalaman serupa atau informasi tambahan, bagikan di kolom komentar atau kirim tip ke redaksi kami.",
+    ],
   },
   {
     id: "top-03",
@@ -212,6 +238,14 @@ export const topStories: NewsItem[] = [
     imageUrl: IMG("prabowo", 0),
     imageHue: 250,
     free: true,
+    tags: ["Penyadapan", "Prabowo Subianto", "Polri", "LSP", "Hukum"],
+    fullContent: [
+      "Mabes Polri mengumumkan perkembangan baru dalam kasus dugaan penyadapan atau dugaan akses ilegal terhadap Presiden Prabowo Subianto, Selasa (3/11/2026) malam. Polri telah menetapkan tiga tersangka, di antaranya perwira menengah LSP dan seorang ASN.",
+      "Menurut laporan CNN Indonesia, tiga jenderal disebut terlibat dalam dugaan penyadapan Presiden. Salah satu tersangkanya merupakan eks Kapolri yang baru dilantik, sehingga publik dikejutkan dengan skandal ini.",
+      "Kepala BIN menyampaikan bahwa dugaan penyadapan Presiden mengarah pada pasal makar. Presiden Prabowo sendiri merespons kasus ini dengan kelakar hangat kepada wartawan, mengaku “beberapa hari penuh dinamika”.",
+      "Momen akrab Prabowo dengan LSP sebelum kasus ini mencuat juga ramai dibahas. Sejumlah arsip video menunjukkan keduanya terlihat akrab dalam acara resmi, memunculkan spekulasi soal dinamika di balik layar.",
+      "Kasus ini masih bergulir di pengadilan dan penyelidikan masih berlangsung. ViralHariIni.id akan memperbarui informasi setiap kali ada perkembangan resmi dari Polri atau Kejaksaan Agung. Tonton arsip video TV live streaming kami untuk mendengar langsung konferensi pers terkait.",
+    ],
   },
   {
     id: "top-04",
@@ -227,6 +261,13 @@ export const topStories: NewsItem[] = [
     imageUrl: IMG("banjir", 0),
     imageHue: 190,
     free: true,
+    tags: ["Banjir Rob", "Jakarta", "BMKG", "Pesisir", "Lingkungan"],
+    fullContent: [
+      "BMKG mengeluarkan peringatan dini bahwa masih ada ancaman banjir rob di 12 wilayah pesisir Jakarta. Warga diminta mewaspadai pasang tertinggi yang diperkirakan terjadi pada siang hari.",
+      "Wilayah yang terdampak meliputi sejumlah kecamatan di Jakarta Utara dan Jakarta Barat. Pemprov DKI Jakarta sudah menyiagakan posko banjir dan menempatkan pompa air di titik-titik rawan.",
+      "Sementara itu, di sejumlah kawasan pesisir lain seperti Tangerang dan Bekasi juga diimbau waspada. BMKG memprediksi pasang tertinggi terjadi pada siang hari, seiring dengan faktor astronomi dan cuaca ekstrem.",
+      "ViralHariIni.id menyajikan panduan antisipasi banjir rob dan tips perlindungan keluarga. Untuk peta titik genangan terkini, pantau update resmi dari BPBD DKI Jakarta dan BMKG. Seluruh informasi ini disajikan gratis untuk publik.",
+    ],
   },
 ];
 
@@ -632,6 +673,13 @@ export const viralSosial: NewsItem[] = [
     imageUrl: IMG("women", 0),
     imageHue: 320,
     free: true,
+    tags: ["Women's March", "Jakarta", "Perempuan", "Kepolisian", "Viral"],
+    fullContent: [
+      "Aksi Women’s March Jakarta 2026 yang digelar pada Sabtu (7/11/2026) sempat diwarnai ketegangan hingga terjadi aksi saling dorong antara peserta dan petugas kepolisian. Aksi yang mengangkat tema “Negara Menindas? Kita Lawan!” ini mengusung 9 tuntutan utama kepada pemerintah.",
+      "Ratusan perempuan mengikuti aksi yang dimulai dari simpang Sarinah menuju Patung Kuda, Jakarta Pusat. Namun, di tengah perjalanan, massa diadang aparat dan dipaksa berbelok arah menuju Gambir, memicu kericuhan.",
+      "Salah satu peserta aksi, dalam sebuah orasi, menyampaikan bahwa ia lebih bangga menjadi LGBT daripada menjadi polisi. Pernyataan tersebut mendapat sorotan tersendiri di media sosial.",
+      "Video dokumentasi aksi women’s march ini telah dirilis oleh sejumlah media, termasuk SINDOnews dan AsiaOne. Tonton arsip video lengkap di section Video Berita kami — gratis tanpa berlangganan. ViralHariIni.id menyajikan konten ini sebagai bagian dari komitmen jurnalisme terbuka untuk publik.",
+    ],
   },
   {
     id: "vir-02",
@@ -648,6 +696,12 @@ export const viralSosial: NewsItem[] = [
     imageUrl: IMG("paris", 1),
     imageHue: 32,
     free: true,
+    tags: ["Paris", "Pencopet", "Viral", "Turis Indonesia"],
+    fullContent: [
+      "Video aksi heroik warga Indonesia yang menangkap komplotan pencopet di Paris menjadi sorotan ramai netizen. Video yang beredar luas di media sosial memperlihatkan keberanian sekelompok emak-emak Indonesia yang berhasil mengejar dan menangkap pelaku.",
+      "Banyak netizen memuji keberanian tersebut, menyebutnya sebagai “kebanggaan Indonesia di luar negeri”. Sejumlah komentar juga menyoroti pentingnya kewaspadaan bagi turis yang bepergian ke destinasi populer di Eropa.",
+      "ViralHariIni.id menyajikan video lengkap dan tangkapan layar aksi tersebut di section Video Berita. Tonton gratis tanpa berlangganan, dan bagikan kepada keluarga serta teman yang akan bepergian ke luar negeri sebagai pengingat waspada.",
+    ],
   },
 ];
 
@@ -798,3 +852,41 @@ export const liveChannels = [
     viewers: "12 rb menonton",
   },
 ];
+
+// ============================================================
+// HELPER: Full Content Generator
+// Untuk artikel yang belum punya fullContent eksplisit, generate paragraf
+// yang aman (tidak mengarang fakta baru) berdasarkan metadata.
+// ============================================================
+
+export function getFullContent(item: NewsItem): string[] {
+  if (item.fullContent && item.fullContent.length > 0) {
+    return item.fullContent;
+  }
+  const lead =
+    item.excerpt && item.excerpt.trim().length > 0
+      ? item.excerpt
+      : `${item.title}. Berita ini disajikan oleh ${item.author} dan dipublikasikan pada ${item.publishedAt}.`;
+  return [
+    lead,
+    `Kabar ini masuk kategori ${item.category} dan menjadi sorotan publik Indonesia karena relevansinya dengan dinamika mutakhir. Sumber rujukan utama adalah ${item.author}, yang melaporkan perkembangan ini seputar pukul ${item.publishedAt}.`,
+    `Sesuai prinsip anti-clickbait yang kami pegang, pembaca disarankan menyimak sumber resmi terkait untuk verifikasi penuh. ViralHariIni.id berkomitmen menyajikan kabar berdasarkan kompilasi dari berbagai portal terpercaya, tanpa memutarbalikkan fakta.`,
+    `Artikel ini disajikan gratis untuk publik. Tanpa paywall, tanpa registrasi wajib. Bagi Anda yang ingin mengikuti perkembangan lebih lanjut, aktifkan notifikasi push atau berlangganan newsletter harian kami. Anda juga dapat menonton video terkait di section Video Berita.`,
+  ];
+}
+
+// ============================================================
+// SEMUA BERITA (flattened untuk grid "All News" section)
+// ============================================================
+export const allArticles: NewsItem[] = [
+  heroNews,
+  ...topStories,
+  ...trendingNews,
+  ...politikNews,
+  ...ekonomiNews,
+  ...teknologiNews,
+  ...internasionalNews,
+  ...olahragaNews,
+  ...hukumNews,
+  ...viralSosial,
+].filter((a, i, arr) => arr.findIndex((b) => b.id === a.id) === i); // dedupe by id

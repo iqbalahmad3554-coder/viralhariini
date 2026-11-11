@@ -1,10 +1,10 @@
 'use client'
 
-import Link from 'next/link'
 import { Eye, Clock, ChevronRight } from 'lucide-react'
 import { NewsImage } from '@/components/news/news-image'
 import { Badge } from '@/components/ui/badge'
 import { trendingNews, hukumNews, topStories, type NewsItem } from '@/lib/news-data'
+import { useOpenArticle } from '@/hooks/use-open-article'
 
 const mostRead: NewsItem[] = [
   ...trendingNews.slice(0, 3),
@@ -14,6 +14,7 @@ const mostRead: NewsItem[] = [
 ]
 
 export function MostRead() {
+  const openArticle = useOpenArticle()
   return (
     <section className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-5 flex items-end justify-between border-b-2 border-border pb-2">
@@ -25,12 +26,6 @@ export function MostRead() {
             24 jam terakhir &middot; diperbarui otomatis
           </p>
         </div>
-        <Link
-          href="#"
-          className="flex items-center gap-1 text-xs font-semibold text-red-600 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-        >
-          Lihat semua <ChevronRight className="h-3 w-3" />
-        </Link>
       </div>
 
       <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:thin]">
@@ -39,7 +34,11 @@ export function MostRead() {
             key={item.id}
             className="group w-[280px] shrink-0 snap-start overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md sm:w-[320px]"
           >
-            <Link href="#" className="block">
+            <button
+              onClick={() => openArticle(item)}
+              className="block w-full text-left"
+              aria-label={`Baca selengkapnya: ${item.title}`}
+            >
               <div className="relative aspect-[16/10]">
                 <NewsImage
                   hue={item.imageHue}
@@ -70,8 +69,11 @@ export function MostRead() {
                     <Clock className="h-3 w-3" /> {item.readTime} mnt
                   </span>
                 </div>
+                <span className="mt-3 flex items-center gap-1 text-xs font-semibold text-red-600 dark:text-red-400">
+                  Baca selengkapnya <ChevronRight className="h-3 w-3" />
+                </span>
               </div>
-            </Link>
+            </button>
           </article>
         ))}
       </div>

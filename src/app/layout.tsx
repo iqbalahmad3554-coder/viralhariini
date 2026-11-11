@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ArticleReader } from "@/components/news/article-reader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,6 +62,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <ArticleReader />
           <Toaster />
           <SonnerToaster position="bottom-right" richColors closeButton />
         </ThemeProvider>

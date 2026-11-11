@@ -6,8 +6,10 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { NewsImage } from '@/components/news/news-image'
 import { topStories, trendingNews, type NewsItem } from '@/lib/news-data'
+import { useOpenArticle } from '@/hooks/use-open-article'
 
 export function TopStoriesSection() {
+  const openArticle = useOpenArticle()
   return (
     <section className="mx-auto max-w-7xl px-4 py-6">
       <div className="grid gap-6 lg:grid-cols-3">
@@ -40,9 +42,10 @@ export function TopStoriesSection() {
               <ol className="divide-y divide-border">
                 {trendingNews.map((item, idx) => (
                   <li key={item.id}>
-                    <Link
-                      href="#"
-                      className="group flex items-start gap-3 px-4 py-3 transition-colors hover:bg-muted/60"
+                    <button
+                      onClick={() => openArticle(item)}
+                      className="group flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-muted/60"
+                      aria-label={`Baca selengkapnya: ${item.title}`}
                     >
                       <span className="mt-0.5 w-7 shrink-0 text-2xl font-extrabold leading-none text-red-600 dark:text-red-400">
                         {String(idx + 1).padStart(2, '0')}
@@ -59,7 +62,7 @@ export function TopStoriesSection() {
                         </div>
                       </div>
                       <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-red-600" />
-                    </Link>
+                    </button>
                   </li>
                 ))}
               </ol>
@@ -72,9 +75,14 @@ export function TopStoriesSection() {
 }
 
 export function NewsCard({ item }: { item: NewsItem }) {
+  const openArticle = useOpenArticle()
   return (
     <article className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-      <Link href="#" className="block">
+      <button
+        onClick={() => openArticle(item)}
+        className="block w-full text-left"
+        aria-label={`Baca selengkapnya: ${item.title}`}
+      >
         <div className="relative aspect-[16/10]">
           <NewsImage
             hue={item.imageHue}
@@ -112,7 +120,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
             </span>
           </div>
         </div>
-      </Link>
+      </button>
     </article>
   )
 }
@@ -120,7 +128,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
 export function SectionTitle({
   title,
   subtitle,
-  href = '#',
+  href = '#semua',
 }: {
   title: string
   subtitle?: string

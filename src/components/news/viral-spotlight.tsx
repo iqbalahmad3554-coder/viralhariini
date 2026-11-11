@@ -1,12 +1,13 @@
 'use client'
 
-import Link from 'next/link'
 import { Eye, Flame, Play, TrendingUp } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { NewsImage } from '@/components/news/news-image'
 import { viralSosial } from '@/lib/news-data'
+import { useOpenArticle } from '@/hooks/use-open-article'
 
 export function ViralSpotlight() {
+  const openArticle = useOpenArticle()
   return (
     <section id="viral" className="scroll-mt-32 bg-gradient-to-b from-red-50/60 to-background py-8 dark:from-red-950/15">
       <div className="mx-auto max-w-7xl px-4">
@@ -19,12 +20,6 @@ export function ViralSpotlight() {
               Berita yang sedang paling ramai dibicarakan di media sosial
             </p>
           </div>
-          <Link
-            href="#"
-            className="text-xs font-semibold text-red-600 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-          >
-            Lihat semua →
-          </Link>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -33,7 +28,11 @@ export function ViralSpotlight() {
               key={item.id}
               className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:shadow-md"
             >
-              <Link href="#" className="block">
+              <button
+                onClick={() => openArticle(item)}
+                className="block w-full text-left"
+                aria-label={`Baca selengkapnya: ${item.title}`}
+              >
                 <div className="relative aspect-[16/9]">
                   <NewsImage
                     hue={item.imageHue}
@@ -78,7 +77,7 @@ export function ViralSpotlight() {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </button>
             </article>
           ))}
         </div>

@@ -142,6 +142,17 @@ export function SiteHeader() {
                 </SheetClose>
                 <SheetClose asChild>
                   <Link
+                    href="#semua"
+                    className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-bold transition-colors hover:bg-muted"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Menu className="h-4 w-4 text-red-600" /> Semua Berita
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
                     href="#gratis"
                     className="flex items-center justify-between rounded-md bg-emerald-500/10 px-3 py-2.5 text-sm font-bold text-emerald-700 transition-colors hover:bg-emerald-500/15 dark:text-emerald-500"
                   >
@@ -264,6 +275,12 @@ export function SiteHeader() {
             className="flex items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:border-red-500/40 hover:text-red-600 dark:hover:text-red-400"
           >
             <Radio className="h-4 w-4" /> Video
+          </Link>
+          <Link
+            href="#semua"
+            className="flex items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-sm font-bold text-foreground transition-colors hover:border-red-500/40 hover:text-red-600 dark:hover:text-red-400"
+          >
+            <Menu className="h-4 w-4" /> Semua Berita
           </Link>
           <Link
             href="#gratis"

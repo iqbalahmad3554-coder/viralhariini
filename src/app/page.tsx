@@ -11,6 +11,7 @@ import { SiteFooter } from '@/components/news/site-footer'
 import { VideoGallery } from '@/components/news/video-gallery'
 import { LiveChannels } from '@/components/news/live-channels'
 import { FreeAccessBanner } from '@/components/news/free-access-banner'
+import { AllNewsSection } from '@/components/news/all-news-section'
 
 import {
   politikNews,
@@ -105,6 +106,9 @@ export default function Home() {
           items={hukumNews}
           accentClass="bg-violet-600"
         />
+
+        {/* Semua Berita — grid semua artikel dengan filter kategori */}
+        <AllNewsSection />
 
         {/* Newsletter signup */}
         <Newsletter />

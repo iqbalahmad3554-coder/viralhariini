@@ -1,11 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { NewsImage } from '@/components/news/news-image'
 import { SectionTitle } from '@/components/news/top-stories'
 import { Badge } from '@/components/ui/badge'
 import { type NewsItem } from '@/lib/news-data'
+import { useOpenArticle } from '@/hooks/use-open-article'
 import { cn } from '@/lib/utils'
 
 interface CategorySectionProps {
@@ -23,6 +23,7 @@ export function CategorySection({
   items,
   accentClass,
 }: CategorySectionProps) {
+  const openArticle = useOpenArticle()
   if (items.length === 0) return null
   const [lead, ...rest] = items
 
@@ -33,7 +34,11 @@ export function CategorySection({
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Lead artikel */}
         <article className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:shadow-md lg:col-span-1">
-          <Link href="#" className="block">
+          <button
+            onClick={() => openArticle(lead)}
+            className="block w-full text-left"
+            aria-label={`Baca selengkapnya: ${lead.title}`}
+          >
             <div className="relative aspect-[16/10]">
               <NewsImage
                 hue={lead.imageHue}
@@ -59,7 +64,7 @@ export function CategorySection({
                 {lead.publishedAt}
               </div>
             </div>
-          </Link>
+          </button>
         </article>
 
         {/* List samping */}
@@ -67,9 +72,10 @@ export function CategorySection({
           <ul className="grid gap-3 sm:grid-cols-1">
             {rest.map((item) => (
               <li key={item.id}>
-                <Link
-                  href="#"
-                  className="group flex gap-3 rounded-xl border border-border bg-card p-3 transition-all hover:shadow-sm sm:gap-4 sm:p-4"
+                <button
+                  onClick={() => openArticle(item)}
+                  className="group flex w-full gap-3 rounded-xl border border-border bg-card p-3 text-left transition-all hover:shadow-sm sm:gap-4 sm:p-4"
+                  aria-label={`Baca selengkapnya: ${item.title}`}
                 >
                   <div className="relative aspect-square w-24 shrink-0 sm:w-32">
                     <NewsImage
@@ -107,7 +113,7 @@ export function CategorySection({
                     </div>
                   </div>
                   <ArrowRight className="mt-1 hidden h-4 w-4 shrink-0 self-center text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-red-600 sm:block" />
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
