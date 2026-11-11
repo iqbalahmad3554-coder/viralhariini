@@ -132,6 +132,13 @@ const IMG = (key: string, idx = 0): string => {
       "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0130ea32adbb.png",
       "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3334da0221d6.jpg",
     ],
+    fresh: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7fec1c7764f4.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d2d1c4bfbbed.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/703e634a801a.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/92ce6612fcd7.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a8a02e2cf84c.jpg",
+    ],
   };
   return map[key]?.[idx] ?? "";
 };
@@ -1198,6 +1205,141 @@ export const extraNews: NewsItem[] = [
 ];
 
 // ============================================================
+// BERITA SEGAR — 12 November 2026 (rangkaian artikel terbaru,
+// disusun redaksi dari kompilasi pemberitaan hari ini)
+// ============================================================
+export const freshNews: NewsItem[] = [
+  {
+    id: "fresh-01",
+    title:
+      "Prabowo Hadiri HUT ke-15 Partai Nasdem, Gibran Tidak Terlihat di Acara",
+    excerpt:
+      "Presiden Prabowo Subianto hadir memeriahkan HUT ke-15 Partai Nasdem di Jakarta, Kamis (12/11/2026). Kehadiran Gibran yang absen menjadi sorotan, di tengah isu pengunduran dirinya dari jabatan Wapres.",
+    category: "Politik",
+    author: "Redaksi ViralHariIni",
+    publishedAt: "12 Nov 2026, 06:50 WIB",
+    readTime: 5,
+    views: "42,1 rb",
+    trending: true,
+    imageUrl: IMG("fresh", 0),
+    imageHue: 210,
+    free: true,
+    tags: ["Prabowo Subianto", "Nasdem", "Gibran Rakabuming", "HUT Partai", "Politik"],
+    fullContent: [
+      "Presiden Prabowo Subianto tampil hadir dalam perayaan hari ulang tahun ke-15 Partai Nasdem di Jakarta, Kamis (12/11/2026). Kehadiran Ketua Umum Dewan Pembina Partai Buruh ini menjadi daya tarik tersendiri di tengah dinamika politik nasional pekan ini yang memanas.",
+      "Yang paling menarik perhatian, Wakil Presiden Gibran Rakabuming Raka tidak terlihat di acara tersebut. Absennya Gibran langsung jadi bahan pembicaraan, mengingat sejak Rabu (11/11) malam publik digegerkan kabar penyerahan surat pengunduran dirinya dari jabatan Wapres kepada Presiden Prabowo.",
+      "Dalam acara perayaan yang berlangsung meriah itu, sejumlah pengurus dan kadre Nasdem tampak menyambut hangat kehadiran Prabowo. Koalisi yang terbentuk sejak Pemilu 2024 memang menjadikan Nasdem salah satu pilar pendukung pemerintahan, sehingga kehadiran Presiden dinilai pengamat sebagai sinyal kekompakan yang tetap terjaga.",
+      "Pengamat politik menilai, momen HUT ini penting bagi Nasdem untuk menegaskan posisinya di tengah ketidakpastian politik yang sedang berjalan. Beberapa narasumber yang dihubungi redaksi menyebut, semua partai koalisi tengah menunggu kejelasan langkah Majelis Permusyawaratan Rakyat (MPR) terkait surat pengunduran diri Wapres yang rencananya diteruskan hari ini.",
+      "Di sisi lain, kubu Gibran hingga pagi ini belum mengeluarkan pernyataan resmi lanjutan. Yang ada baru konfirmasi awal dari Ketua Umum Projo Budi Arie Setiadi yang menyebut pengunduran diri itu benar, tanpa merinci proses hukum dan politik selanjutnya.",
+      "DPR sendiri mulai bergerak. Sedikitnya 18 anggota Fraksi Demokrat telah mengusulkan Hak Menyatakan Pendapat (HMP) terkait rangkaian peristiwa ini, dan tanda tangan para anggota dewan direncanakan dikumpulkan pada sidang paripurna berikutnya.",
+      "ViralHariIni.id memantau peristiwa ini secara langsung dan akan memperbarui artikel seiring perkembangan terbaru. Ikuti juga section Video Berita untuk rekaman acara HUT Nasdem, serta aktifkan notifikasi agar tidak ketinggalan kabar politik penting hari ini. Seluruh liputan kami gratis, tanpa paywall.",
+    ],
+  },
+  {
+    id: "fresh-02",
+    title:
+      "Video Anak Kecil Berjalan Sendirian di Tol Lampung Bikin Heboh Warganet",
+    excerpt:
+      "Rekaman CCTV dan kamera perekam kendaraan yang memperlihatkan seorang anak kecil berjalan sendirian di badan jalan tol di Lampung beredar luas di media sosial. Warganet meminta pengelola tol memperketat pengawasan akses.",
+    category: "Viral",
+    author: "Redaksi ViralHariIni",
+    publishedAt: "12 Nov 2026, 07:35 WIB",
+    readTime: 4,
+    views: "67,8 rb",
+    trending: true,
+    imageUrl: IMG("fresh", 1),
+    imageHue: 190,
+    free: true,
+    tags: ["Tol Lampung", "Anak Kecil", "Viral", "Keselamatan Jalan", "Media Sosial"],
+    fullContent: [
+      "Sebuah video berdurasi pendek yang memperlihatkan seorang anak kecil berjalan sendirian di badan jalan tol di Lampung menjadi sorotan luas warganet sejak malam kemarin. Dalam rekaman yang beredar di sejumlah akun media sosial, terlihat anak tersebut melangkah tenang di lajur kendaraan yang berkecepatan tinggi.",
+      "Unggahan itu cepat merambat dan memuncaki daftar topik pembicaraan. Komentar yang masuk umumnya menyatakan prihatin sekaligus bingung bagaimana anak sekecil itu bisa lolos dari pengawasan dan masuk ke area yang seharusnya tertutup untuk pejalan kaki.",
+      "Sejumlah pengguna jalan tol di Lampung turut melaporkan pernah melihat hal serupa. Mereka mendesak pengelola jalan tol memperketat pemeriksaan di gerbang masuk, termasuk memperbaiki titik-titik rawan di pagar pembatas yang diduga menjadi celah masuk.",
+      "Hingga berita ini diturunkan, pihak pengelola jalan tol belum mengeluarkan keterangan resmi yang merinci kronologi kejadian. Redaksi juga belum menemukan konfirmasi soal kondisi terakhir anak tersebut — apakah sudah ditemukan dan diserahkan ke keluarganya — sehingga kami menahan diri untuk tidak memperbesar detail yang belum terverifikasi.",
+      "Dari sisi regulasi, keberadaan pejalan kaki di jalan tol jelas melanggar ketentuan keselamatan. Jalan tol ditutup untuk pejalan kaki, sepeda, dan kendaraan bermotor yang laju minimumnya tidak memenuhi syarat, dan setiap pelanggaran berpotensi membahayakan nyawa sendiri maupun pengguna jalan lain.",
+      "Peristiwa ini sekali lagi mengingatkan pentingnya pengawasan orang tua serta kecepatan respons operator jalan tol. Sejumlah pihak menyinggung perlunya protokol patroli rutin untuk mendeteksi cepat keberadaan orang asing di badan jalan, apalagi pada ruas yang lalu-lalangnya padat.",
+      "ViralHariIni.id akan memperbarui artikel ini begitu ada keterangan resmi dari pengelola tol atau aparat setempat. Kirim rekaman atau informasi tambahan kepada redaksi melalui laman Laporan Tip, dan bagikan artikel ini sebagai pengingat keselamatan untuk keluarga Anda — semuanya gratis.",
+    ],
+  },
+  {
+    id: "fresh-03",
+    title:
+      "Timnas Indonesia Hadapi Yordania di FIFA Matchday November, Panggung Terakhir Jelang Piala Asia 2027",
+    excerpt:
+      "Skuad Garuda menjalani FIFA Matchday November 2026 dengan menghadapi Yordania — momen ujian terakhir mematikan mental dan taktik jelang Piala Asia 2027, usai sukses juara FIFA ASEAN Cup 2026.",
+    category: "Olahraga",
+    author: "Redaksi ViralHariIni",
+    publishedAt: "12 Nov 2026, 08:15 WIB",
+    readTime: 6,
+    views: "88,4 rb",
+    trending: true,
+    imageUrl: IMG("fresh", 2),
+    imageHue: 20,
+    free: true,
+    tags: ["Timnas Indonesia", "Yordania", "FIFA Matchday", "Piala Asia 2027", "Sepak Bola"],
+    fullContent: [
+      "Timnas Indonesia memasuki jeda internasional bulan November dengan agenda penting: FIFA Matchday melawan Yordania. Laga ini dinilai banyak pengamat sebagai ujian terakhir yang pas untuk mengukur kesiapan Skuad Garuda jelang Piala Asia 2027, mengingat kualitas tim-tim Asia Barat yang selalu menjadi penakar standar.",
+      "Momentum Garuda memang sedang di atas rata-rata. Baru saja Indonesia mengangkat trofi FIFA ASEAN Cup 2026 setelah menaklukkan Thailand lewat dramatis adu penalti — gelar regional yang menegaskan regenerasi skuad berjalan sesuai rencana.",
+      "Sebelum kesuksesan itu, Garuda juga sempat menapak sampai final FIFA Series 2026, meski akhirnya harus mengakui keunggulan Bulgaria dengan skor tipis 0-1. Hasil yang sengit melawan wakil Eropa itu justru dihargai publik, karena menunjukkan daya tanding Indonesia tidak lagi mudah diremehkan di level internasional.",
+      "Tantangan melawan Yordania tidak main-main. Tim peringkat atas Asia Barat ini dikenal disiplin, fisik kuat, dan efektif dalam transisi cepat. Bagi pelatih, ini panggung ideal untuk menguji lini pertahanan yang selama ini jadi catatan kritis, sekaligus mencoba variasi lini tengah saat tekanan datang dari sisi sayap.",
+      "Dari sisi pemain, jendela November ini juga peluang bagi nama-nama muda untuk mengukuhkan posisi di starting eleven. Kompetisi internal yang sehat menjadi modal berharga jangka panjang, apalagi kalender 2027 akan sangat padat dengan persiapan menuju Piala Asia.",
+      "Perhelatan Piala Asia 2027 dinanti publik sebagai panggung terbesar generasi ini. Setelah serentetan hasil yang membangun optimisme, tugas terbesar timnas kini menjaga konsistensi — karena di level Asia, selisih antara menang dan kalah kerja hanya terletak pada detail persiapan.",
+      "ViralHariIni.id akan menyajikan jadwal lengkap, jalur siaran, dan hasil laga ini di halaman kategori Olahraga. Dukung Garuda dengan membagikan artikel ini ke grup supporters Anda — semua liputan timnas kami gratis, tanpa berlangganan.",
+    ],
+  },
+  {
+    id: "fresh-04",
+    title:
+      "BI Rate Dipertahankan di Level 5,75%, Aliran Modal Asing Tembus US$8,5 Miliar",
+    excerpt:
+      "Bank Indonesia konsisten menahan BI Rate di 5,75% demi stabilitas rupiah. Strategi pengetatan itu dinilai berhasil — pasar keuangan Indonesia menyerap aliran modal asing hingga US$8,5 miliar.",
+    category: "Ekonomi",
+    author: "Redaksi ViralHariIni",
+    publishedAt: "12 Nov 2026, 08:50 WIB",
+    readTime: 5,
+    views: "23,6 rb",
+    imageUrl: IMG("fresh", 3),
+    imageHue: 140,
+    free: true,
+    tags: ["Bank Indonesia", "BI Rate", "Rupiah", "Modal Asing", "Ekonomi"],
+    fullContent: [
+      "Bank Indonesia memilih mempertahankan suku bunga acuan (BI Rate) di level 5,75% pada rapat Dewan Gubernur terakhir. Keputusan ini melanjutkan arah kebijakan yang sama sepanjang kuartal terakhir: menjaga stabilitas rupiah sambil memastikan laju inflasi tetap terkendali di sasaran.",
+      "Pilihan menahan diri itu tidak lepas dari dinamika global yang belum sepenuhnya reda. Ketidakpastian arah suku bunga bank sentral dunia membuat arus modal negara berkembang mudah bergolak, dan BI jelas tidak ingin rupiah menjadi yang paling goyah di kawasan.",
+      "Sejauh ini, strateginya dinilai berjalan efektif. Pantauan terhadap pergerakan pasar menunjukkan langkah pengetatan yang dilakukan otoritas moneter berhasil menarik aliran modal asing hingga mencapai US$8,5 miliar ke pasar keuangan Indonesia — angka yang mencerminkan kepercayaan investor terhadap fundamental ekonomi domestik.",
+      "Sejak awal tahun, BI memang tercatat lebih agresif dibanding periode sebelumnya. Suku bunga acuan sempat dinaikkan ke level 5,50% pada pertengahan tahun, sebelum akhirnya berada di 5,75% seperti sekarang — rangkaian kenaikan yang ditujukan untuk memperkuat daya tarik instrumen rupiah di mata investor global.",
+      "Bagi masyarakat biasa, kestabilan BI Rate membawa konsekuensi praktis. Bunga kredit konsumtif — mulai KPR hingga kredit kendaraan — diperkirakan bertahan di posisi yang tidak terlalu memberatkan, sementara deposan menikmati imbal hasil yang tetap menarik di tengah tekanan inflasi.",
+      "Ke depan, perhatian pasar akan beralih ke rapat Dewan Gubernur berikutnya. Pelaku pasar menghitung dua skenario: kelonggaran kebijakan bila inflasi global semakin jinak, atau penahanan lebih lama bila gejolak mata uang negara berkembang kembali menguat.",
+      "ViralHariIni.id memantau pergerakan rupiah, saham, dan komoditas setiap hari lewat widget Pasar Ekonomi di beranda. Jadikan artikel ini referensi diskusi keuangan Anda, dan bagikan ke rekan yang sedang menimbang instrumen investasi — akses 100% gratis.",
+    ],
+  },
+  {
+    id: "fresh-05",
+    title:
+      "Komdigi Percepat Pembentukan Talenta AI dan Keamanan Siber, Ekosistem Digital Tepercaya Jadi Target",
+    excerpt:
+      "Kementerian Komunikasi dan Digital memperkuat pengembangan talenta kecerdasan buatan dan keamanan siber lewat forum AICX 2026, diiringi kolaborasi Indonesia-Singapura lewat Project Nusa untuk ekosistem AI nasional.",
+    category: "Teknologi",
+    author: "Redaksi ViralHariIni",
+    publishedAt: "12 Nov 2026, 09:20 WIB",
+    readTime: 6,
+    views: "18,9 rb",
+    imageUrl: IMG("fresh", 4),
+    imageHue: 260,
+    free: true,
+    tags: ["Komdigi", "Kecerdasan Buatan", "Keamanan Siber", "Project Nusa", "Talenta Digital"],
+    fullContent: [
+      "Kementerian Komunikasi dan Digital (Komdigi) menggenjot pembentukan talenta di dua bidang strategis sekaligus: kecerdasan buatan (AI) dan keamanan siber. Agenda itu tersaji dalam pembukaan AI, Cybersecurity, and Innovation Exchange (AICX) 2026 di Jakarta yang dipimpin Dirjen Ekosistem Digital Edwin Hidayat Abdullah.",
+      "Dalam sambutannya, pemerintah menegaskan bahwa Indonesia tidak cukup hanya menjadi konsumen teknologi. Negara perlu membangun ekosistem tepercaya — tempat talenta lokal, regulasi, dan industri bergerak seiring — agar kedaulatan digital tidak berhenti di wacana.",
+      "Langkah konkret mulai terlihat. Pada ajang Bali Tech Week di Denpasar, Indonesia berkolaborasi dengan Singapura meluncurkan Project Nusa — inisiatif penguatan ekosistem AI lintas negara yang membuka akses bagi pengembang dan perusahaan rintisan Indonesia ke jaringan talenta dan riset regional.",
+      "Pengembangan kompetisi juga jadi jalur penyaringan bakat. Kontes AI Indonesia 2026 yang digagas bersama komunitas industri mempertemukan inovator AI anak bangsa, dengan tema akselerasi teknologi nasional yang siap memperkokoh kedaulatan digital.",
+      "Di panggung diplomasi teknologi, Indonesia turut mempromosikan pemanfaatan AI untuk kepentingan publik di India AI Impact Summit 2026 — menegaskan posisi bahwa kecerdasan buatan seharusnya terlebih dahulu menjawab persoalan sosial: layanan kesehatan, pendidikan, dan pemerintahan yang lebih responsif.",
+      "Bagi para profesional muda, sinyal dari seluruh agenda ini jelas: kompetensi AI dan keamanan siber sedang berada di jalur cepat permintaan pasar. Pelatihan bersertifikat, magang industri, hingga kolaborasi riset lintas negara dibuka lebih lebar dibanding tahun-tahun sebelumnya.",
+      "ViralHariIni.id mengikuti perkembangan kebijakan digital dan teknologi Indonesia setiap hari. Telusuri seluruh liputan di halaman kategori Teknologi, dan berlangganan newsletter gratis untuk menerima ringkasan berita teknologi pilihan setiap pagi pukul 06.00 WIB.",
+    ],
+  },
+];
+
+// ============================================================
 // SEMUA BERITA (flattened untuk grid "All News" section)
 // ============================================================
 export const allArticles: NewsItem[] = [
@@ -1212,6 +1354,7 @@ export const allArticles: NewsItem[] = [
   ...hukumNews,
   ...viralSosial,
   ...extraNews,
+  ...freshNews,
 ].filter((a, i, arr) => arr.findIndex((b) => b.id === a.id) === i); // dedupe by id
 
 // ============================================================
